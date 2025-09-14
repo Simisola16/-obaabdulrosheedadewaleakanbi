@@ -66,13 +66,26 @@
         }
         
         .logo-text h1 {
-            font-size: 1.8rem;
+            font-size: 1rem;
             font-weight: 700;
         }
         
         .logo-text p {
             font-size: 0.9rem;
             opacity: 0.9;
+        }
+
+        /* Added styles for logo image */
+        .logo-image img {
+            width: 80px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-image img:hover {
+            transform: scale(1.1);
         }
         
         nav ul {
@@ -753,12 +766,12 @@
     <header>
         <div class="header-content">
             <div class=" container logo">
-                <div class="logo-icon">
-                    <i class="fas fa-crown"></i>
+                <div class="logo-image">
+                    <img src="/image/oluwo_logo-removebg-preview.png" alt="">
                 </div>
                 <div class="logo-text">
-                    <h1>Oluwo of Iwoland</h1>
-                    <p>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</p>
+                    <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                    <p>Oluwo of Iwoland</p>
                 </div>
             </div>
             
