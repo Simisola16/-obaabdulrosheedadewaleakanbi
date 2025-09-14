@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Oluwo of Iwoland</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --red: #A52A2A;
+            --white: #FFFFFF;
+            --dark-red: #8B0000;
+            --light-gold: #E6C567;
+            --dark-gold: #B8860B;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-gray) 0%, #e8e8e8 100%);
+            color: var(--dark-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Enhanced Header */
+        header {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: fadeInLeft 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--white), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .logout-btn {
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            color: var(--dark-gray);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            animation: fadeInRight 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Enhanced Login Container */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--red) 0%, var(--dark-red) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0) }
+            10% { transform: translate(-5%, -10%) }
+            20% { transform: translate(-15%, 5%) }
+            30% { transform: translate(7%, -25%) }
+            40% { transform: translate(-5%, 25%) }
+            50% { transform: translate(-15%, 10%) }
+            60% { transform: translate(15%, 0%) }
+            70% { transform: translate(0%, 15%) }
+            80% { transform: translate(3%, -10%) }
+            90% { transform: translate(-10%, 5%) }
+        }
+
+        .login-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 1s ease-out 0.6s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--red);
+            font-size: 2.2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .login-form h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            border-radius: 2px;
+            animation: growWidth 1.2s ease-out 1s both;
+        }
+
+        @keyframes growWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .form-group input:focus::placeholder {
+            color: #ccc;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(45deg, var(--red), var(--dark-red));
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(165, 42, 42, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(45deg, var(--dark-red), var(--red));
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(165, 42, 42, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .dashboard-tabs {
+            display: flex;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--gold);
+            background: var(--white);
+            border-radius: 15px 15px 0 0;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 18px 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+            flex: 1;
+        }
+
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            transition: width 0.3s ease;
+        }
+
+        .tab-btn:hover::before {
+            width: 100%;
+        }
+
+        .tab-btn.active {
+            color: var(--red);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .tab-btn.active::before {
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--red);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--gold);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            border-radius: 2px;
+        }
+
+        .form-container {
+            background: var(--white);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 35px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--red), var(--dark-red));
+            color: var(--white);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(165, 42, 42, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: linear-gradient(45deg, var(--dark-red), var(--red));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(165, 42, 42, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            color: var(--dark-gray);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .items-list {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .item {
+            padding: 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .item:hover {
+            background: rgba(212, 175, 55, 0.02);
+            transform: translateX(5px);
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item-content h3 {
+            margin-bottom: 8px;
+            color: var(--red);
+            font-size: 1.2rem;
+        }
+
+        .item-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .edit-btn, .delete-btn {
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-btn {
+            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            color: var(--dark-gray);
+        }
+
+        .edit-btn:hover {
+            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+
+        .delete-btn {
+            background: linear-gradient(45deg, #dc3545, #c82333);
+            color: var(--white);
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(45deg, #c82333, #dc3545);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-upcoming {
+            background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), rgba(230, 198, 103, 0.2));
+            color: var(--dark-gold);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .status-past {
+            background: linear-gradient(45deg, rgba(165, 42, 42, 0.15), rgba(139, 0, 0, 0.15));
+            color: var(--dark-red);
+            border: 1px solid rgba(165, 42, 42, 0.3);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--white);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .dashboard-tabs {
+                flex-wrap: wrap;
+            }
+
+            .tab-btn {
+                flex: 1;
+                min-width: 120px;
+                padding: 15px 20px;
+            }
+
+            .login-form {
+                padding: 30px;
+                margin: 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .message.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: #155724;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .message.error {
+            background: rgba(220, 53, 69, 0.1);
+            color: #721c24;
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content container">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-crown"></i></div>
+                <div class="logo-text">
+                    <h1>Oluwo of Iwoland</h1>
+                    <p>Admin Panel</p>
+                </div>
+            </div>
+            <button class="logout-btn" id="logoutBtn" style="display: none;">Logout</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="login-container" id="loginContainer">
+            <form class="login-form" id="loginForm">
+                <h2>Admin Login</h2>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+        </div>
+
+        <div class="dashboard" id="dashboard">
+            <div class="dashboard-tabs">
+                <button class="tab-btn active" data-tab="hero">Hero Image</button>
+                <button class="tab-btn" data-tab="news">News</button>
+                <button class="tab-btn" data-tab="activities">Activities</button>
+                <button class="tab-btn" data-tab="gallery">Gallery</button>
+                <button class="tab-btn" data-tab="messages">Messages</button>
+            </div>
+
+            <!-- Hero Tab -->
+            <div class="tab-content active" id="heroTab">
+                <h2 class="section-title">Manage Hero Image</h2>
+                <div class="form-container">
+                    <div id="currentHeroContainer" style="display: none; margin-bottom: 20px;">
+                        <h3>Current Hero Image</h3>
+                        <img id="currentHeroImage" style="max-width: 100%; height: auto; border-radius: 5px;" alt="Current Hero Image">
+                    </div>
+                    <form id="heroForm">
+                        <div class="form-group">
+                            <label for="heroFile">Upload New Hero Image</label>
+                            <input type="file" id="heroFile" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn">Upload Hero Image</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- News Tab -->
+            <div class="tab-content" id="newsTab">
+                <h2 class="section-title">Manage News</h2>
+                <div class="form-container">
+                    <form id="newsForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newsTitle">Title</label>
+                                <input type="text" id="newsTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newsDate">Date</label>
+                                <input type="date" id="newsDate" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newsBadge">Badge</label>
+                                <select id="newsBadge">
+                                    <option value="NEW">NEW</option>
+                                    <option value="EVENT">EVENT</option>
+                                    <option value="UPDATE">UPDATE</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newsImageFile">Upload Image</label>
+                                <input type="file" id="newsImageFile" accept="image/*" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsExcerpt">Excerpt</label>
+                            <textarea id="newsExcerpt" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Add News</button>
+                    </form>
+                </div>
+                <div class="items-list" id="newsList"></div>
+            </div>
+
+            <!-- Activities Tab -->
+            <div class="tab-content" id="activitiesTab">
+                <h2 class="section-title">Manage Activities</h2>
+                <div class="form-container">
+                    <form id="activityForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activityTitle">Title</label>
+                                <input type="text" id="activityTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="activityDate">Date</label>
+                                <input type="text" id="activityDate" placeholder="August 15-18, 2023" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activityImageFile">Upload Image</label>
+                                <input type="file" id="activityImageFile" accept="image/*" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="activityStatus">Status</label>
+                                <select id="activityStatus">
+                                    <option value="upcoming">Upcoming</option>
+                                    <option value="past">Past</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activityDesc">Description</label>
+                            <textarea id="activityDesc" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Add Activity</button>
+                    </form>
+                </div>
+                <div class="items-list" id="activitiesList"></div>
+            </div>
+
+            <!-- Gallery Tab -->
+            <div class="tab-content" id="galleryTab">
+                <h2 class="section-title">Manage Gallery</h2>
+                <div class="form-container">
+                    <form id="galleryForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="galleryTitle">Title</label>
+                                <input type="text" id="galleryTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="galleryDate">Date</label>
+                                <input type="text" id="galleryDate" placeholder="November 2015" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="galleryFile">Upload Image</label>
+                            <input type="file" id="galleryFile" accept="image/*" required>
+                        </div>
+                        <button type="submit" class="btn">Add Gallery Item</button>
+                    </form>
+                </div>
+                <div class="items-list" id="galleryList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBaQDRdl5mmCsCkL4kf6r_rNrL-m-s6_cg",
+            authDomain: "oluwo-iwo.firebaseapp.com",
+            projectId: "oluwo-iwo",
+            storageBucket: "oluwo-iwo.firebasestorage.app",
+            messagingSenderId: "432608907887",
+            appId: "1:432608907887:web:d51e88237a7097b68fb39a",
+            measurementId: "G-D364X8Z8Q2"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // DOM Elements
+        const loginContainer = document.getElementById('loginContainer');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('loginForm');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Auth State
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginContainer.style.display = 'none';
+                dashboard.style.display = 'block';
+                logoutBtn.style.display = 'block';
+                loadAllData();
+            } else {
+                loginContainer.style.display = 'flex';
+                dashboard.style.display = 'none';
+                logoutBtn.style.display = 'none';
+            }
+        });
+
+        // Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                alert('Login failed: ' + error.message);
+            }
+        });
+
+        // Logout
+        logoutBtn.addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        // Tab Switching
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab + 'Tab').classList.add('active');
+            });
+        });
+
+        // Hero Form
+        document.getElementById('heroForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fileInput = document.getElementById('heroFile');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert('Please select an image file to upload.');
+                return;
+            }
+            try {
+                // Upload file to Firebase Storage
+                const heroImageRef = ref(storage, 'hero/' + file.name);
+                await uploadBytes(heroImageRef, file);
+                const url = await getDownloadURL(heroImageRef);
+                // Save URL to Firestore
+                await setDoc(doc(db, 'settings', 'hero'), { url });
+                alert('Hero image uploaded and updated successfully!');
+                fileInput.value = '';
+            } catch (error) {
+                alert('Error uploading hero image: ' + error.message);
+            }
+        });
+
+        // News Form
+        document.getElementById('newsForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('newsTitle').value;
+            const date = document.getElementById('newsDate').value;
+            const badge = document.getElementById('newsBadge').value;
+            const image = document.getElementById('newsImage').value;
+            const excerpt = document.getElementById('newsExcerpt').value;
+
+            try {
+                await addDoc(collection(db, 'news'), {
+                    title,
+                    date,
+                    badge,
+                    image,
+                    excerpt,
+                    createdAt: new Date()
+                });
+                alert('News added successfully!');
+                document.getElementById('newsForm').reset();
+                loadNews();
+            } catch (error) {
+                alert('Error adding news: ' + error.message);
+            }
+        });
+
+        // Activity Form
+        document.getElementById('activityForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('activityTitle').value;
+            const date = document.getElementById('activityDate').value;
+            const image = document.getElementById('activityImage').value;
+            const status = document.getElementById('activityStatus').value;
+            const desc = document.getElementById('activityDesc').value;
+
+            try {
+                await addDoc(collection(db, 'activities'), {
+                    title,
+                    date,
+                    image,
+                    status,
+                    desc,
+                    createdAt: new Date()
+                });
+                alert('Activity added successfully!');
+                document.getElementById('activityForm').reset();
+                loadActivities();
+            } catch (error) {
+                alert('Error adding activity: ' + error.message);
+            }
+        });
+
+        // Gallery Form
+        document.getElementById('galleryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('galleryTitle').value;
+            const date = document.getElementById('galleryDate').value;
+            const src = document.getElementById('gallerySrc').value;
+
+            try {
+                await addDoc(collection(db, 'gallery'), {
+                    title,
+                    date,
+                    src,
+                    createdAt: new Date()
+                });
+                alert('Gallery item added successfully!');
+                document.getElementById('galleryForm').reset();
+                loadGallery();
+            } catch (error) {
+                alert('Error adding gallery item: ' + error.message);
+            }
+        });
+
+        // Load Functions
+        async function loadAllData() {
+            loadHero();
+            loadNews();
+            loadActivities();
+            loadGallery();
+        }
+
+        async function loadHero() {
+            try {
+                const docSnap = await getDoc(doc(db, 'settings', 'hero'));
+                if (docSnap.exists()) {
+                    const url = docSnap.data().url;
+                    const currentHeroContainer = document.getElementById('currentHeroContainer');
+                    const currentHeroImage = document.getElementById('currentHeroImage');
+                    currentHeroImage.src = url;
+                    currentHeroContainer.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error loading hero:', error);
+            }
+        }
+
+        async function loadNews() {
+            const newsList = document.getElementById('newsList');
+            newsList.innerHTML = '';
+            try {
+                const querySnapshot = await getDocs(collection(db, 'news'));
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const item = document.createElement('div');
+                    item.className = 'item';
+                    item.innerHTML = `
+                        <div class="item-content">
+                            <h3>${data.title}</h3>
+                            <p>${data.date} - ${data.badge}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="edit-btn" onclick="editNews('${doc.id}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteItem('news', '${doc.id}')">Delete</button>
+                        </div>
+                    `;
+                    newsList.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Error loading news:', error);
+            }
+        }
+
+        async function loadActivities() {
+            const activitiesList = document.getElementById('activitiesList');
+            activitiesList.innerHTML = '';
+            try {
+                const querySnapshot = await getDocs(collection(db, 'activities'));
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const item = document.createElement('div');
+                    item.className = 'item';
+                    item.innerHTML = `
+                        <div class="item-content">
+                            <h3>${data.title}</h3>
+                            <p>${data.date} - <span class="status status-${data.status}">${data.status}</span></p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="edit-btn" onclick="editActivity('${doc.id}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteItem('activities', '${doc.id}')">Delete</button>
+                        </div>
+                    `;
+                    activitiesList.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Error loading activities:', error);
+            }
+        }
+
+        async function loadGallery() {
+            const galleryList = document.getElementById('galleryList');
+            galleryList.innerHTML = '';
+            try {
+                const querySnapshot = await getDocs(collection(db, 'gallery'));
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const item = document.createElement('div');
+                    item.className = 'item';
+                    item.innerHTML = `
+                        <div class="item-content">
+                            <h3>${data.title}</h3>
+                            <p>${data.date}</p>
+                        </div>
+                        <div class="item-actions">
+                            <button class="edit-btn" onclick="editGallery('${doc.id}')">Edit</button>
+                            <button class="delete-btn" onclick="deleteItem('gallery', '${doc.id}')">Delete</button>
+                        </div>
+                    `;
+                    galleryList.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+            }
+        }
+
+        // Global functions for buttons
+        window.deleteItem = async (collectionName, id) => {
+            if (confirm('Are you sure you want to delete this item?')) {
+                try {
+                    await deleteDoc(doc(db, collectionName, id));
+                    alert('Item deleted successfully!');
+                    if (collectionName === 'news') loadNews();
+                    else if (collectionName === 'activities') loadActivities();
+                    else if (collectionName === 'gallery') loadGallery();
+                } catch (error) {
+                    alert('Error deleting item: ' + error.message);
+                }
+            }
+        };
+
+        window.editNews = (id) => {
+            // Implement edit functionality
+            alert('Edit functionality to be implemented');
+        };
+
+        window.editActivity = (id) => {
+            alert('Edit functionality to be implemented');
+        };
+
+        window.editGallery = (id) => {
+            alert('Edit functionality to be implemented');
+        };
+    </script>
+</body>
+</html>

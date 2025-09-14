@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Activities - Oluwo of Iwoland</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --red: #A52A2A;
+            --white: #FFFFFF;
+            --dark-red: #8B0000;
+            --light-gold: #E6C567;
+            --dark-gold: #B8860B;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        nav a:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--gold);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        main {
+            padding: 40px 0;
+        }
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--red);
+            margin-bottom: 40px;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        h2.section-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: slideInLeft 1s ease forwards;
+        }
+        .activity-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+        .activity-item {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .activity-item:nth-child(odd) {
+            animation-delay: 0.3s;
+        }
+        .activity-item:nth-child(even) {
+            animation-delay: 0.6s;
+        }
+        .activity-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .activity-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .activity-item h3 {
+            color: var(--dark-red);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .activity-item p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #444;
+        }
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-red);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+            nav ul.show {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .activity-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="container logo">
+                <div class="logo-icon"><i class="fas fa-crown"></i></div>
+                <div class="logo-text">
+                    <h1>Oluwo of Iwoland</h1>
+                    <p>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</p>
+                </div>
+            </div>
+            <nav class="container">
+                <ul id="nav-menu">
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/pages/activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
+                    <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="/pages/news.html"><i class="fas fa-newspaper"></i> News</a></li>
+                    <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="/admin.html"><i class="fas fa-envelope"></i> admin</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobile-menu"><i class="fas fa-bars"></i></button>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <h2 class="section-title">Recent Activities</h2>
+        <div class="activity-list">
+            <div class="activity-item">
+                <img src="/image/telu 17.jpg" alt="Annual Cultural Festival" class="activity-image">
+                <h3>Annual Cultural Festival</h3>
+                <p>The Annual Cultural Festival was held from August 15-18, 2023 at the Royal Palace, celebrating Yoruba heritage with traditional music, dance, and ceremonies.</p>
+            </div>
+            <div class="activity-item">
+                <img src="/image/telu 14.jpg" alt="Youth Empowerment Program" class="activity-image">
+                <h3>Youth Empowerment Program</h3>
+                <p>A youth empowerment program was launched in May 2023 to provide skills training and educational scholarships to young people in Iwo Land.</p>
+            </div>
+            <div class="activity-item">
+                <img src="/image/telu 28.jpg" alt="Community Development Visit" class="activity-image">
+                <h3>Community Development Visit</h3>
+                <p>His Royal Majesty conducted a community development visit in January 2023, engaging with local artisans and leaders to promote economic growth.</p>
+            </div>
+            <div class="activity-item">
+                <img src="/image/telu 21.jpg" alt="Diplomatic Meeting" class="activity-image">
+                <h3>Diplomatic Meeting</h3>
+                <p>In March 2023, the Oluwo hosted a diplomatic meeting to strengthen international partnerships and cultural exchanges.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Information</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Oluwo's Palace, Iwo, Osun State, Nigeria</li>
+                        <li><i class="fas fa-phone"></i> +234 123 456 7890</li>
+                        <li><i class="fas fa-envelope"></i> contact@oluwo-iwoland.org</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="contact-info">
+                        <li><a href="index.html"><i class="fas fa-arrow-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-arrow-right"></i> About Oluwo</a></li>
+                        <li><a href="activities.html"><i class="fas fa-arrow-right"></i> Activities</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-arrow-right"></i> Gallery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Visit The Palace</h3>
+                    <p>The palace of the Oluwo of Iwoland is open to visitors by appointment. Experience the rich cultural heritage and history of the Iwo Kingdom.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Oluwo of Iwoland - All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--gold);"></i> for the Kingdom</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                navMenu.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>

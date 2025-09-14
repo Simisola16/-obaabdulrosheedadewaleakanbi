@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Oluwo of Iwoland</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --red: #A52A2A;
+            --white: #FFFFFF;
+            --dark-red: #8B0000;
+            --light-gold: #E6C567;
+            --dark-gold: #B8860B;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        } 
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--gold);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Professional Marquee */
+        .ticker-container {
+            background: var(--gold);
+            color: var(--dark-red);
+            padding: 10px 0;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 2px solid var(--dark-gold);
+        }
+        
+        .ticker-content {
+            display: flex;
+            animation: ticker 25s linear infinite;
+            white-space: nowrap;
+        }
+        
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        
+        .ticker-icon {
+            color: var(--dark-red);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .ticker-container:hover .ticker-content {
+            animation-play-state: paused;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--red);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: slideInLeft 1s ease-out 1s forwards;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+                .about-image {
+                    flex: 1;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+                    height: 450px;
+                    width: 100%;
+                    background: url('image/telu 15.jpg') center/cover;
+                    opacity: 0;
+                    animation: slideInLeft 1s ease-out 1.5s forwards;
+                    transition: transform 0.3s ease;
+                }
+
+        .about-image:hover {
+            transform: scale(1.02);
+        }
+
+        .about-text {
+            flex: 1;
+            opacity: 0;
+            animation: slideInRight 1s ease-out 1.5s forwards;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-red);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* Achievements Section */
+        .achievements {
+            padding: 60px 0;
+            background: var(--white);
+        }
+
+        .achievements-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .achievement-card {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2s forwards;
+        }
+
+        .achievement-card:nth-child(2) {
+            animation-delay: 2.2s;
+        }
+
+        .achievement-card:nth-child(3) {
+            animation-delay: 2.4s;
+        }
+
+        .achievement-card:nth-child(4) {
+            animation-delay: 2.6s;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .achievement-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-red);
+            margin-bottom: 10px;
+        }
+
+        .achievement-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+
+        .achievement-desc {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        /* History Section */
+        .history {
+            padding: 60px 0;
+            background: var(--light-gray);
+        }
+
+        .history-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .history-text {
+            flex: 1;
+            opacity: 0;
+            animation: slideInLeft 1s ease-out 2.8s forwards;
+        }
+
+        .history-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark-red);
+        }
+
+        .history-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .history-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            height: 400px;
+            width: 100%;
+            background: url('/image/telu\ 2.jpg') center/cover;
+            opacity: 0;
+            animation: slideInRight 1s ease-out 2.8s forwards;
+            transition: transform 0.3s ease;
+        }
+
+        .history-image:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--red), var(--dark-red));
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--gold);
+            color: var(--dark-gray);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image, .about-text {
+                flex: none;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-red);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+            }
+            
+            nav ul.show {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class=" container logo">
+                <div class="logo-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <div class="logo-text">
+                    <h1>Oluwo of Iwoland</h1>
+                    <p>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</p>
+                </div>
+            </div>
+            
+            <nav class="container">
+                <ul id="nav-menu">
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/pages/activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
+                    <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="/pages/news.html"><i class="fas fa-newspaper"></i> News</a></li>
+                    <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="/admin.html"><i class="fas fa-envelope"></i> admin</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    <!-- Professional Marquee -->
+    <div class="ticker-container">
+        <div class="ticker-content">
+            <div class="ticker-item">
+                <i class="fas fa-star ticker-icon"></i>
+                <span>His Royal Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-calendar-alt ticker-icon"></i>
+                <span>Annual Cultural Festival: August 15-18, 2023 at the Royal Palace</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-graduation-cap ticker-icon"></i>
+                <span>Scholarship applications now open for outstanding students in Iwoland</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-hands-helping ticker-icon"></i>
+                <span>Community development initiative launched to empower local artisans</span>
+            </div>
+        </div>
+    </div>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About The Oluwo</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                </div>
+                <div class="about-text">
+                    <h3>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h3>
+                    <p>Oluwo of Iwo Land is the paramount ruler of Iwo Kingdom, a first class natural ruler in Yorubaland. His Royal Majesty, Oba Abdulrosheed Adewale Akanbi, ascended the throne on November 19, 2015 as the 16th Oluwo of Iwo Land.</p>
+                    <p>Oba Akanbi is known for his progressive leadership, commitment to the development of Iwo Land, and his efforts to promote Yoruba culture and traditions globally. He is a visionary leader dedicated to fostering unity and progress in his domain.</p>
+                    <p>Under his reign, Iwo Land has witnessed significant development in infrastructure, education, and cultural renaissance. The Oluwo is also recognized for his advocacy for peace and his initiatives to empower the youth and women in his kingdom.</p>
+                    <p>Born into a royal lineage with deep roots in Yoruba heritage, Oba Akanbi brings a wealth of experience from his background in education and community service. Before ascending to the throne, he served in various leadership roles that prepared him for the responsibilities of rulership.</p>
+                    <p>The Oluwo's leadership style emphasizes inclusivity, innovation, and sustainability. He has implemented numerous programs aimed at improving healthcare, education, and economic opportunities for all residents of Iwo Land.</p>
+                    <p>Internationally, Oba Akanbi represents Yoruba culture at various global forums, strengthening cultural ties and promoting Nigeria's rich heritage. His diplomatic efforts have earned him recognition as a bridge-builder between traditional institutions and modern governance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements">
+        <div class="container">
+            <div class="section-title">
+                <h2>Achievements & Impact</h2>
+            </div>
+            <div class="achievements-container">
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="achievement-number">500+</div>
+                    <h3 class="achievement-title">Students Supported</h3>
+                    <p class="achievement-desc">Scholarships and educational programs benefiting students across Iwo Land</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <div class="achievement-number">15</div>
+                    <h3 class="achievement-title">Healthcare Facilities</h3>
+                    <p class="achievement-desc">Modern healthcare centers established under his leadership</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="achievement-number">1000+</div>
+                    <h3 class="achievement-title">Jobs Created</h3>
+                    <p class="achievement-desc">Employment opportunities through various development initiatives</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="achievement-number">25+</div>
+                    <h3 class="achievement-title">International Partnerships</h3>
+                    <p class="achievement-desc">Diplomatic relations and cultural exchanges established globally</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history">
+        <div class="container">
+            <div class="section-title">
+                <h2>Legacy of Leadership</h2>
+            </div>
+            <div class="history-content">
+                <div class="history-text">
+                    <h3>The Oluwo Tradition</h3>
+                    <p>The Oluwo of Iwo has been a cornerstone of Yoruba culture for centuries, serving as both spiritual and temporal leader of the Iwo people. The institution represents continuity, wisdom, and the preservation of ancestral values.</p>
+                    <p>Throughout history, Oluwos have played pivotal roles in maintaining peace, fostering development, and upholding the rich cultural heritage of the Iwo Kingdom. Each Oluwo brings their unique vision while honoring the traditions of their predecessors.</p>
+                    <p>Oba Abdulrosheed Adewale Akanbi continues this noble tradition, blending ancient wisdom with modern approaches to governance. His reign marks a new chapter in the storied history of the Oluwo institution.</p>
+                </div>
+                <div class="history-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Information</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> Oluwo's Palace, Iwo, Osun State, Nigeria</li>
+                        <li><i class="fas fa-phone"></i> +234 123 456 7890</li>
+                        <li><i class="fas fa-envelope"></i> contact@oluwo-iwoland.org</li>
+                    </ul>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="contact-info">
+                        <li><a href="index.html"><i class="fas fa-arrow-right"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-arrow-right"></i> About Oluwo</a></li>
+                        <li><a href="index.html#activities"><i class="fas fa-arrow-right"></i> Activities</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-arrow-right"></i> Gallery</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Visit The Palace</h3>
+                    <p>The palace of the Oluwo of Iwoland is open to visitors by appointment. Experience the rich cultural heritage and history of the Iwo Kingdom.</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Oluwo of Iwoland - All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--gold);"></i> for the Kingdom</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu after clicking
+                navMenu.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
