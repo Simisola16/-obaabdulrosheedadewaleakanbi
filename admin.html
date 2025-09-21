@@ -15,8 +15,7 @@
             --dark-gold: #B8860B;
             --light-gray: #f5f5f5;
             --dark-gray: #333;
-            --shadow: 0 10px 30px rgba(0,0,0,0.1);
-            --shadow-hover: 0 15px 35px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -27,10 +26,10 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--light-gray) 0%, #e8e8e8 100%);
+            background-color: var(--light-gray);
             color: var(--dark-gray);
             line-height: 1.6;
-            overflow-x: hidden;
+            min-height: 100vh;
         }
 
         .container {
@@ -39,223 +38,173 @@
             padding: 20px;
         }
 
-        /* Enhanced Header */
+        /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--red), var(--dark-red));
             color: var(--white);
-            padding: 1rem 0;
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 1rem 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
-            animation: fadeInLeft 1s ease-out 0.2s both;
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                transform: translateX(-30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            gap: 20px;
         }
 
         .logo-icon {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--gold);
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .logo-text h1 {
-            font-size: 1.8rem;
+            font-size: 1.2rem;
             font-weight: 700;
-            background: linear-gradient(45deg, var(--white), var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            margin-bottom: 2px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
         .logo-text p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             opacity: 0.9;
+            font-weight: 500;
         }
 
-        .logout-btn {
-            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-            color: var(--dark-gray);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
+        /* Added styles for logo image */
+        .logo-image img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            animation: fadeInRight 1s ease-out 0.4s both;
         }
 
-        @keyframes fadeInRight {
-            from {
-                transform: translateX(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        .logo-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
         }
 
-        .logout-btn:hover {
-            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        /* Enhanced Login Container */
-        .login-container {
+        nav ul {
             display: flex;
-            justify-content: center;
+            list-style: none;
+            gap: 30px;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, var(--red) 0%, var(--dark-red) 100%);
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 25px;
             position: relative;
             overflow: hidden;
         }
 
-        .login-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            animation: grain 8s steps(10) infinite;
-        }
-
-        @keyframes grain {
-            0%, 100% { transform: translate(0, 0) }
-            10% { transform: translate(-5%, -10%) }
-            20% { transform: translate(-15%, 5%) }
-            30% { transform: translate(7%, -25%) }
-            40% { transform: translate(-5%, 25%) }
-            50% { transform: translate(-15%, 10%) }
-            60% { transform: translate(15%, 0%) }
-            70% { transform: translate(0%, 15%) }
-            80% { transform: translate(3%, -10%) }
-            90% { transform: translate(-10%, 5%) }
-        }
-
-        .login-form {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideUp 1s ease-out 0.6s both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .login-form::before {
+        nav a::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
-            animation: shimmer 3s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
         }
 
-        @keyframes slideUp {
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.8rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        /* Login Form */
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.5s ease forwards;
+            transition: var(--transition);
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeInUp {
             from {
-                transform: translateY(50px);
                 opacity: 0;
+                transform: translateY(20px);
             }
             to {
-                transform: translateY(0);
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .login-form h2 {
+        .login-container h2 {
             text-align: center;
-            margin-bottom: 40px;
-            color: var(--red);
-            font-size: 2.2rem;
-            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--dark-red);
             position: relative;
+            padding-bottom: 15px;
         }
 
-        .login-form h2::after {
+        .login-container h2::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 50px;
             height: 3px;
-            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
+            background: var(--gold);
             border-radius: 2px;
-            animation: growWidth 1.2s ease-out 1s both;
-        }
-
-        @keyframes growWidth {
-            from { width: 0; }
-            to { width: 60px; }
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
         }
 
@@ -264,81 +213,96 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark-gray);
-            font-size: 0.95rem;
+            transition: var(--transition);
         }
 
         .form-group input {
             width: 100%;
-            padding: 15px 20px;
-            border: 2px solid #e1e1e1;
-            border-radius: 12px;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
             font-size: 1rem;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            transition: var(--transition);
         }
 
         .form-group input:focus {
-            outline: none;
             border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-            transform: translateY(-2px);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
 
-        .form-group input::placeholder {
-            color: #999;
-            transition: color 0.3s ease;
-        }
-
-        .form-group input:focus::placeholder {
-            color: #ccc;
-        }
-
-        .login-btn {
+        .btn {
             width: 100%;
-            background: linear-gradient(45deg, var(--red), var(--dark-red));
+            padding: 12px;
+            background: var(--red);
             color: var(--white);
             border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 5px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(165, 42, 42, 0.3);
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
 
-        .login-btn::before {
+        .btn::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
         }
 
-        .login-btn:hover::before {
-            left: 100%;
+        .btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
         }
 
-        .login-btn:hover {
-            background: linear-gradient(45deg, var(--dark-red), var(--red));
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(165, 42, 42, 0.4);
+        .btn:active::after {
+            animation: ripple 1s ease-out;
         }
 
-        .login-btn:active {
-            transform: translateY(-1px);
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
         }
 
-        /* Dashboard Styles */
-        .dashboard {
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error {
+            color: var(--red);
+            margin-top: 10px;
+            text-align: center;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        /* Admin Panel */
+        .admin-panel {
             display: none;
-            animation: fadeIn 0.8s ease-out;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
         }
 
         @keyframes fadeIn {
@@ -346,343 +310,453 @@
             to { opacity: 1; }
         }
 
-        .dashboard-tabs {
+        .tabs {
             display: flex;
-            margin-bottom: 40px;
-            border-bottom: 3px solid var(--gold);
-            background: var(--white);
-            border-radius: 15px 15px 0 0;
-            box-shadow: var(--shadow);
-            overflow: hidden;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--gold);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs::-webkit-scrollbar {
+            display: none;
         }
 
         .tab-btn {
+            padding: 15px 30px;
             background: none;
             border: none;
-            padding: 18px 30px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--dark-gray);
-            transition: all 0.3s ease;
             border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            white-space: nowrap;
             position: relative;
-            flex: 1;
         }
 
-        .tab-btn::before {
+        .tab-btn::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
             width: 0;
             height: 3px;
-            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-            transition: width 0.3s ease;
+            background: var(--gold);
+            transition: var(--transition);
         }
 
-        .tab-btn:hover::before {
+        .tab-btn:hover::after {
             width: 100%;
         }
 
         .tab-btn.active {
             color: var(--red);
-            background: rgba(212, 175, 55, 0.05);
         }
 
-        .tab-btn.active::before {
+        .tab-btn.active::after {
             width: 100%;
         }
 
         .tab-content {
             display: none;
-            animation: slideIn 0.5s ease-out;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(10px);
+            opacity: 0;
+            transition: var(--transition);
         }
 
         .tab-content.active {
             display: block;
+            animation: tabFadeIn 0.4s ease forwards;
         }
 
-        @keyframes slideIn {
+        @keyframes tabFadeIn {
             from {
-                transform: translateX(20px);
                 opacity: 0;
+                transform: translateY(10px);
             }
             to {
-                transform: translateX(0);
                 opacity: 1;
+                transform: translateY(0);
             }
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            color: var(--red);
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid var(--gold);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-            border-radius: 2px;
-        }
-
-        .form-container {
-            background: var(--white);
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            margin-bottom: 35px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .form-container:hover {
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
         }
 
         .form-row {
             display: flex;
-            gap: 25px;
-            margin-bottom: 25px;
+            gap: 20px;
+            margin-bottom: 20px;
         }
 
         .form-row .form-group {
             flex: 1;
         }
 
-        .btn {
-            background: linear-gradient(45deg, var(--red), var(--dark-red));
-            color: var(--white);
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
+        .file-input {
+            border: 2px dashed #ddd;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 5px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(165, 42, 42, 0.3);
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
 
-        .btn::before {
-            content: '';
+        .file-input:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .file-input i {
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .file-input:hover i {
+            transform: scale(1.1);
+        }
+
+        .file-input input {
+            display: none;
+        }
+
+        .preview {
+            margin-top: 15px;
+            max-width: 200px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .preview:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-upload {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border: 2px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .gallery-item input {
+            display: none;
+        }
+
+        .logout-btn {
             position: absolute;
-            top: 0;
-            left: -100%;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--red);
+            color: var(--white);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .logout-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .gallery-previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-preview-item {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            animation: scaleIn 0.3s ease;
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .gallery-preview-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .gallery-preview-item img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            object-fit: cover;
+            transition: var(--transition);
         }
 
-        .btn:hover::before {
-            left: 100%;
+        .gallery-preview-item:hover img {
+            transform: scale(1.05);
         }
 
-        .btn:hover {
-            background: linear-gradient(45deg, var(--dark-red), var(--red));
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(165, 42, 42, 0.4);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-            color: var(--dark-gray);
-        }
-
-        .btn-secondary:hover {
-            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
-        }
-
-        .items-list {
-            background: var(--white);
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .item {
-            padding: 25px;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .item:hover {
-            background: rgba(212, 175, 55, 0.02);
-            transform: translateX(5px);
-        }
-
-        .item:last-child {
-            border-bottom: none;
-        }
-
-        .item-content h3 {
-            margin-bottom: 8px;
-            color: var(--red);
-            font-size: 1.2rem;
-        }
-
-        .item-content p {
-            color: #666;
-            font-size: 0.95rem;
-        }
-
-        .item-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .edit-btn, .delete-btn {
+        .gallery-preview-item .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--red);
+            color: white;
             border: none;
-            padding: 10px 18px;
-            border-radius: 8px;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            opacity: 0;
         }
 
-        .edit-btn {
-            background: linear-gradient(45deg, var(--gold), var(--dark-gold));
-            color: var(--dark-gray);
+        .gallery-preview-item:hover .remove-btn {
+            opacity: 1;
         }
 
-        .edit-btn:hover {
-            background: linear-gradient(45deg, var(--dark-gold), var(--gold));
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        .remove-btn:hover {
+            background: var(--dark-red);
+            transform: scale(1.1);
         }
 
-        .delete-btn {
-            background: linear-gradient(45deg, #dc3545, #c82333);
-            color: var(--white);
+        /* Success/Error Messages */
+        #hero-message, #news-message, #activities-message, #gallery-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+            animation: fadeIn 0.5s ease;
         }
 
-        .delete-btn:hover {
-            background: linear-gradient(45deg, #c82333, #dc3545);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
-        }
-
-        .status {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .status-upcoming {
-            background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), rgba(230, 198, 103, 0.2));
-            color: var(--dark-gold);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .status-past {
-            background: linear-gradient(45deg, rgba(165, 42, 42, 0.15), rgba(139, 0, 0, 0.15));
-            color: var(--dark-red);
-            border: 1px solid rgba(165, 42, 42, 0.3);
-        }
-
-        /* Loading Animation */
+        /* Loading animation */
         .loading {
             display: inline-block;
             width: 20px;
             height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255,255,255,0.3);
             border-radius: 50%;
-            border-top-color: var(--white);
+            border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .form-row {
+        /* Textarea styling */
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 100px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        textarea:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Select styling */
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: white;
+            transition: var(--transition);
+        }
+
+        select:focus {
+            border-color: var(--gold);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        @media (max-width: 992px) {
+            .header-content {
                 flex-direction: column;
                 gap: 20px;
             }
 
-            .dashboard-tabs {
-                flex-wrap: wrap;
+            .logo {
+                justify-content: center;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+
+            .logo-text p {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark-red);
+                flex-direction: column;
+                padding: 30px;
+                gap: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .tabs {
+                flex-direction: column;
             }
 
             .tab-btn {
-                flex: 1;
-                min-width: 120px;
-                padding: 15px 20px;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+                text-align: left;
+                padding: 12px 20px;
             }
 
-            .login-form {
-                padding: 30px;
-                margin: 20px;
+            .tab-btn::after {
+                content: none;
             }
 
-            .section-title {
-                font-size: 1.8rem;
+            .tab-btn.active {
+                border-left-color: var(--gold);
+                border-bottom-color: transparent;
+            }
+
+            .logout-btn {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+            }
+
+            .logo-text p {
+                font-size: 0.85rem;
             }
         }
 
-        /* Success/Error Messages */
-        .message {
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            animation: slideDown 0.5s ease-out;
-        }
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+            }
 
-        .message.success {
-            background: rgba(40, 167, 69, 0.1);
-            color: #155724;
-            border: 1px solid rgba(40, 167, 69, 0.2);
-        }
+            .login-container {
+                margin: 50px auto;
+                padding: 30px 20px;
+            }
 
-        .message.error {
-            background: rgba(220, 53, 69, 0.1);
-            color: #721c24;
-            border: 1px solid rgba(220, 53, 69, 0.2);
+            .logo-image img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .logo-icon {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-content container">
-            <div class="logo">
-                <div class="logo-icon"><i class="fas fa-crown"></i></div>
+        <div class="header-content">
+            <div class="container logo">
+                <div class="logo-image">
+                    <img src="/image/oluwo_logo-removebg-preview.png" alt="Oluwo Logo">
+                </div>
                 <div class="logo-text">
-                    <h1>Oluwo of Iwoland</h1>
-                    <p>Admin Panel</p>
+                    <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                    <p>Oluwo of Iwoland</p>
                 </div>
             </div>
-            <button class="logout-btn" id="logoutBtn" style="display: none;">Logout</button>
+
+            <nav class="container">
+                <ul id="nav-menu">
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                    <li><a href="/pages/activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
+                    <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    <li><a href="/pages/news.html"><i class="fas fa-newspaper"></i> News</a></li>
+                    <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                    <li><a href="/admin.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+                </ul>
+                <button class="mobile-menu-btn" id="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
         </div>
     </header>
 
     <div class="container">
-        <div class="login-container" id="loginContainer">
-            <form class="login-form" id="loginForm">
-                <h2>Admin Login</h2>
+        <!-- Login Form -->
+        <div id="login-container" class="login-container">
+            <h2>Admin Login</h2>
+            <form id="login-form">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" id="email" required>
@@ -691,137 +765,127 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" required>
                 </div>
-                <button type="submit" class="login-btn">Login</button>
+                <button type="submit" class="btn">Login</button>
             </form>
+            <div id="login-error" class="error"></div>
         </div>
 
-        <div class="dashboard" id="dashboard">
-            <div class="dashboard-tabs">
+        <!-- Admin Panel -->
+        <div id="admin-panel" class="admin-panel">
+            <button class="logout-btn" id="logout-btn">Logout</button>
+
+            <div class="tabs">
                 <button class="tab-btn active" data-tab="hero">Hero Image</button>
-                <button class="tab-btn" data-tab="news">News</button>
+                <button class="tab-btn" data-tab="news">News Feed</button>
                 <button class="tab-btn" data-tab="activities">Activities</button>
                 <button class="tab-btn" data-tab="gallery">Gallery</button>
-                <button class="tab-btn" data-tab="messages">Messages</button>
             </div>
 
-            <!-- Hero Tab -->
-            <div class="tab-content active" id="heroTab">
-                <h2 class="section-title">Manage Hero Image</h2>
-                <div class="form-container">
-                    <div id="currentHeroContainer" style="display: none; margin-bottom: 20px;">
-                        <h3>Current Hero Image</h3>
-                        <img id="currentHeroImage" style="max-width: 100%; height: auto; border-radius: 5px;" alt="Current Hero Image">
+            <!-- Hero Image Tab -->
+            <div id="hero" class="tab-content active">
+                <h3>Change Hero Image</h3>
+                <form id="hero-form">
+                    <div class="form-group">
+                        <label class="file-input">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select hero image</p>
+                            <input type="file" id="hero-image" accept="image/*" required>
+                        </label>
+                        <img id="hero-preview" class="preview" style="display: none;">
                     </div>
-                    <form id="heroForm">
-                        <div class="form-group">
-                            <label for="heroFile">Upload New Hero Image</label>
-                            <input type="file" id="heroFile" accept="image/*" required>
-                        </div>
-                        <button type="submit" class="btn">Upload Hero Image</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn">Update Hero Image</button>
+                </form>
+                <div id="hero-message"></div>
             </div>
 
             <!-- News Tab -->
-            <div class="tab-content" id="newsTab">
-                <h2 class="section-title">Manage News</h2>
-                <div class="form-container">
-                    <form id="newsForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="newsTitle">Title</label>
-                                <input type="text" id="newsTitle" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="newsDate">Date</label>
-                                <input type="date" id="newsDate" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="newsBadge">Badge</label>
-                                <select id="newsBadge">
-                                    <option value="NEW">NEW</option>
-                                    <option value="EVENT">EVENT</option>
-                                    <option value="UPDATE">UPDATE</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="newsImageFile">Upload Image</label>
-                                <input type="file" id="newsImageFile" accept="image/*" required>
-                            </div>
+            <div id="news" class="tab-content">
+                <h3>Add News Item</h3>
+                <form id="news-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="news-title">Title</label>
+                            <input type="text" id="news-title" required>
                         </div>
                         <div class="form-group">
-                            <label for="newsExcerpt">Excerpt</label>
-                            <textarea id="newsExcerpt" rows="3" required></textarea>
+                            <label for="news-badge">Badge</label>
+                            <input type="text" id="news-badge" placeholder="e.g., Royal" required>
                         </div>
-                        <button type="submit" class="btn">Add News</button>
-                    </form>
-                </div>
-                <div class="items-list" id="newsList"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="news-date">Date</label>
+                        <input type="date" id="news-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="news-excerpt">Excerpt</label>
+                        <textarea id="news-excerpt" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="file-input">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select news image</p>
+                            <input type="file" id="news-image" accept="image/*" required>
+                        </label>
+                        <img id="news-preview" class="preview" style="display: none;">
+                    </div>
+                    <button type="submit" class="btn">Add News Item</button>
+                </form>
+                <div id="news-message"></div>
             </div>
 
             <!-- Activities Tab -->
-            <div class="tab-content" id="activitiesTab">
-                <h2 class="section-title">Manage Activities</h2>
-                <div class="form-container">
-                    <form id="activityForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="activityTitle">Title</label>
-                                <input type="text" id="activityTitle" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="activityDate">Date</label>
-                                <input type="text" id="activityDate" placeholder="August 15-18, 2023" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="activityImageFile">Upload Image</label>
-                                <input type="file" id="activityImageFile" accept="image/*" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="activityStatus">Status</label>
-                                <select id="activityStatus">
-                                    <option value="upcoming">Upcoming</option>
-                                    <option value="past">Past</option>
-                                </select>
-                            </div>
+            <div id="activities" class="tab-content">
+                <h3>Add Activity</h3>
+                <form id="activities-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="activity-title">Title</label>
+                            <input type="text" id="activity-title" required>
                         </div>
                         <div class="form-group">
-                            <label for="activityDesc">Description</label>
-                            <textarea id="activityDesc" rows="3" required></textarea>
+                            <label for="activity-status">Status</label>
+                            <select id="activity-status" required>
+                                <option value="upcoming">Upcoming</option>
+                                <option value="past">Past</option>
+                            </select>
                         </div>
-                        <button type="submit" class="btn">Add Activity</button>
-                    </form>
-                </div>
-                <div class="items-list" id="activitiesList"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity-date">Date</label>
+                        <input type="text" id="activity-date" placeholder="e.g., January 2024" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="activity-desc">Description</label>
+                        <textarea id="activity-desc" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="file-input">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select activity image</p>
+                            <input type="file" id="activity-image" accept="image/*" required>
+                        </label>
+                        <img id="activity-preview" class="preview" style="display: none;">
+                    </div>
+                    <button type="submit" class="btn">Add Activity</button>
+                </form>
+                <div id="activities-message"></div>
             </div>
 
             <!-- Gallery Tab -->
-            <div class="tab-content" id="galleryTab">
-                <h2 class="section-title">Manage Gallery</h2>
-                <div class="form-container">
-                    <form id="galleryForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="galleryTitle">Title</label>
-                                <input type="text" id="galleryTitle" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="galleryDate">Date</label>
-                                <input type="text" id="galleryDate" placeholder="November 2015" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="galleryFile">Upload Image</label>
-                            <input type="file" id="galleryFile" accept="image/*" required>
-                        </div>
-                        <button type="submit" class="btn">Add Gallery Item</button>
-                    </form>
-                </div>
-                <div class="items-list" id="galleryList"></div>
+            <div id="gallery" class="tab-content">
+                <h3>Add Gallery Images</h3>
+                <form id="gallery-form">
+                    <div class="form-group">
+                        <label class="file-input" id="gallery-upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select gallery images (multiple allowed)</p>
+                            <input type="file" id="gallery-input" accept="image/*" multiple required>
+                        </label>
+                    </div>
+                    <div id="gallery-previews" class="gallery-previews"></div>
+                    <button type="submit" class="btn" style="margin-top: 20px;">Upload Gallery Images</button>
+                </form>
+                <div id="gallery-message"></div>
             </div>
         </div>
     </div>
@@ -830,8 +894,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-storage.js";
+        import { getFirestore, doc, setDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBaQDRdl5mmCsCkL4kf6r_rNrL-m-s6_cg",
@@ -846,27 +909,24 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
-        // DOM Elements
-        const loginContainer = document.getElementById('loginContainer');
-        const dashboard = document.getElementById('dashboard');
-        const loginForm = document.getElementById('loginForm');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
+        const loginContainer = document.getElementById('login-container');
+        const adminPanel = document.getElementById('admin-panel');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
 
-        // Auth State
+        // Check auth state
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 loginContainer.style.display = 'none';
-                dashboard.style.display = 'block';
-                logoutBtn.style.display = 'block';
-                loadAllData();
+                adminPanel.style.display = 'block';
+                adminPanel.style.opacity = 0;
+                setTimeout(() => {
+                    adminPanel.style.opacity = 1;
+                }, 10);
             } else {
-                loginContainer.style.display = 'flex';
-                dashboard.style.display = 'none';
-                logoutBtn.style.display = 'none';
+                loginContainer.style.display = 'block';
+                adminPanel.style.display = 'none';
             }
         });
 
@@ -875,254 +935,335 @@
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
+            const submitBtn = loginForm.querySelector('.btn');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.innerHTML = '<span class="loading"></span> Logging in...';
+            submitBtn.disabled = true;
 
             try {
                 await signInWithEmailAndPassword(auth, email, password);
+                document.getElementById('login-error').textContent = '';
             } catch (error) {
-                alert('Login failed: ' + error.message);
+                document.getElementById('login-error').textContent = 'Invalid credentials';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
 
         // Logout
         logoutBtn.addEventListener('click', async () => {
+            logoutBtn.innerHTML = '<span class="loading"></span> Logging out...';
+            logoutBtn.disabled = true;
             await signOut(auth);
+            logoutBtn.innerHTML = 'Logout';
+            logoutBtn.disabled = false;
         });
 
-        // Tab Switching
-        tabBtns.forEach(btn => {
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 btn.classList.add('active');
-                document.getElementById(btn.dataset.tab + 'Tab').classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
             });
         });
 
-        // Hero Form
-        document.getElementById('heroForm').addEventListener('submit', async (e) => {
+        // Convert file to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        // File preview functions
+        function previewImage(input, preview) {
+            input.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        previewImage(document.getElementById('hero-image'), document.getElementById('hero-preview'));
+        previewImage(document.getElementById('news-image'), document.getElementById('news-preview'));
+        previewImage(document.getElementById('activity-image'), document.getElementById('activity-preview'));
+
+        // Hero form
+        document.getElementById('hero-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const fileInput = document.getElementById('heroFile');
-            const file = fileInput.files[0];
-            if (!file) {
-                alert('Please select an image file to upload.');
-                return;
-            }
+            const file = document.getElementById('hero-image').files[0];
+            if (!file) return;
+
+            const message = document.getElementById('hero-message');
+            const submitBtn = document.querySelector('#hero-form .btn');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.innerHTML = '<span class="loading"></span> Uploading...';
+            submitBtn.disabled = true;
+            message.textContent = '';
+
             try {
-                // Upload file to Firebase Storage
-                const heroImageRef = ref(storage, 'hero/' + file.name);
-                await uploadBytes(heroImageRef, file);
-                const url = await getDownloadURL(heroImageRef);
-                // Save URL to Firestore
-                await setDoc(doc(db, 'settings', 'hero'), { url });
-                alert('Hero image uploaded and updated successfully!');
-                fileInput.value = '';
+                // Check if user is authenticated
+                const user = auth.currentUser;
+                if (!user) {
+                    throw new Error('User not authenticated. Please log in again.');
+                }
+
+                // Convert image to base64
+                const base64Image = await fileToBase64(file);
+
+                // Store in Firestore
+                await setDoc(doc(db, 'settings', 'hero'), {
+                    url: base64Image,
+                    fileName: file.name,
+                    fileSize: file.size,
+                    uploadedAt: serverTimestamp()
+                });
+
+                message.textContent = 'Hero image updated successfully!';
+                message.style.color = 'green';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             } catch (error) {
-                alert('Error uploading hero image: ' + error.message);
+                console.error('Hero upload error:', error);
+                message.textContent = `Error updating hero image: ${error.message}`;
+                message.style.color = 'red';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
 
-        // News Form
-        document.getElementById('newsForm').addEventListener('submit', async (e) => {
+        // News form
+        document.getElementById('news-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const title = document.getElementById('newsTitle').value;
-            const date = document.getElementById('newsDate').value;
-            const badge = document.getElementById('newsBadge').value;
-            const image = document.getElementById('newsImage').value;
-            const excerpt = document.getElementById('newsExcerpt').value;
+            const title = document.getElementById('news-title').value;
+            const badge = document.getElementById('news-badge').value;
+            const date = document.getElementById('news-date').value;
+            const excerpt = document.getElementById('news-excerpt').value;
+            const file = document.getElementById('news-image').files[0];
+
+            if (!file) return;
+
+            const message = document.getElementById('news-message');
+            const submitBtn = document.querySelector('#news-form .btn');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.innerHTML = '<span class="loading"></span> Uploading...';
+            submitBtn.disabled = true;
+            message.textContent = '';
 
             try {
+                // Convert image to base64
+                const base64Image = await fileToBase64(file);
+
                 await addDoc(collection(db, 'news'), {
                     title,
-                    date,
                     badge,
-                    image,
+                    date: new Date(date),
                     excerpt,
-                    createdAt: new Date()
+                    image: base64Image,
+                    createdAt: serverTimestamp()
                 });
-                alert('News added successfully!');
-                document.getElementById('newsForm').reset();
-                loadNews();
+
+                message.textContent = 'News item added successfully!';
+                message.style.color = 'green';
+                document.getElementById('news-form').reset();
+                document.getElementById('news-preview').style.display = 'none';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             } catch (error) {
-                alert('Error adding news: ' + error.message);
+                console.error('News upload error:', error);
+                message.textContent = `Error adding news item: ${error.message}`;
+                message.style.color = 'red';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
 
-        // Activity Form
-        document.getElementById('activityForm').addEventListener('submit', async (e) => {
+        // Activities form
+        document.getElementById('activities-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const title = document.getElementById('activityTitle').value;
-            const date = document.getElementById('activityDate').value;
-            const image = document.getElementById('activityImage').value;
-            const status = document.getElementById('activityStatus').value;
-            const desc = document.getElementById('activityDesc').value;
+            const title = document.getElementById('activity-title').value;
+            const status = document.getElementById('activity-status').value;
+            const date = document.getElementById('activity-date').value;
+            const desc = document.getElementById('activity-desc').value;
+            const file = document.getElementById('activity-image').files[0];
+
+            if (!file) return;
+
+            const message = document.getElementById('activities-message');
+            const submitBtn = document.querySelector('#activities-form .btn');
+            const originalText = submitBtn.textContent;
+
+            submitBtn.innerHTML = '<span class="loading"></span> Uploading...';
+            submitBtn.disabled = true;
+            message.textContent = '';
 
             try {
+                // Convert image to base64
+                const base64Image = await fileToBase64(file);
+
                 await addDoc(collection(db, 'activities'), {
                     title,
-                    date,
-                    image,
                     status,
-                    desc,
-                    createdAt: new Date()
-                });
-                alert('Activity added successfully!');
-                document.getElementById('activityForm').reset();
-                loadActivities();
-            } catch (error) {
-                alert('Error adding activity: ' + error.message);
-            }
-        });
-
-        // Gallery Form
-        document.getElementById('galleryForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const title = document.getElementById('galleryTitle').value;
-            const date = document.getElementById('galleryDate').value;
-            const src = document.getElementById('gallerySrc').value;
-
-            try {
-                await addDoc(collection(db, 'gallery'), {
-                    title,
                     date,
-                    src,
-                    createdAt: new Date()
+                    desc,
+                    image: base64Image,
+                    createdAt: serverTimestamp()
                 });
-                alert('Gallery item added successfully!');
-                document.getElementById('galleryForm').reset();
-                loadGallery();
+
+                message.textContent = 'Activity added successfully!';
+                message.style.color = 'green';
+                document.getElementById('activities-form').reset();
+                document.getElementById('activity-preview').style.display = 'none';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             } catch (error) {
-                alert('Error adding gallery item: ' + error.message);
+                console.error('Activity upload error:', error);
+                message.textContent = `Error adding activity: ${error.message}`;
+                message.style.color = 'red';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         });
 
-        // Load Functions
-        async function loadAllData() {
-            loadHero();
-            loadNews();
-            loadActivities();
-            loadGallery();
+        // Gallery upload handling
+        const galleryInput = document.getElementById('gallery-input');
+        const galleryPreviews = document.getElementById('gallery-previews');
+        let selectedFiles = [];
+
+        galleryInput.addEventListener('change', (e) => {
+            const files = Array.from(e.target.files);
+            
+            // Clear previous previews if starting fresh
+            if (selectedFiles.length === 0) {
+                galleryPreviews.innerHTML = '';
+            }
+            
+            // Add new files to our selection
+            selectedFiles = [...selectedFiles, ...files];
+            
+            // Update previews
+            updateGalleryPreviews();
+        });
+
+        function updateGalleryPreviews() {
+            galleryPreviews.innerHTML = '';
+            
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'gallery-preview-item';
+                    
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = file.name;
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.onclick = () => removeGalleryImage(index);
+                    
+                    previewItem.appendChild(img);
+                    previewItem.appendChild(removeBtn);
+                    galleryPreviews.appendChild(previewItem);
+                };
+                reader.readAsDataURL(file);
+            });
         }
 
-        async function loadHero() {
+        function removeGalleryImage(index) {
+            selectedFiles.splice(index, 1);
+            updateGalleryPreviews();
+        }
+
+        // Gallery form submission
+        document.getElementById('gallery-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            if (selectedFiles.length === 0) {
+                alert('Please select at least one image');
+                return;
+            }
+
+            const message = document.getElementById('gallery-message');
+            const submitBtn = document.querySelector('#gallery-form .btn');
+            const originalText = submitBtn.textContent;
+
+            message.textContent = 'Uploading...';
+            submitBtn.innerHTML = '<span class="loading"></span> Uploading...';
+            submitBtn.disabled = true;
+
             try {
-                const docSnap = await getDoc(doc(db, 'settings', 'hero'));
-                if (docSnap.exists()) {
-                    const url = docSnap.data().url;
-                    const currentHeroContainer = document.getElementById('currentHeroContainer');
-                    const currentHeroImage = document.getElementById('currentHeroImage');
-                    currentHeroImage.src = url;
-                    currentHeroContainer.style.display = 'block';
+                let uploadedCount = 0;
+                const totalFiles = selectedFiles.length;
+
+                for (const file of selectedFiles) {
+                    // Convert image to base64
+                    const base64Image = await fileToBase64(file);
+
+                    await addDoc(collection(db, 'gallery'), {
+                        src: base64Image,
+                        title: file.name,
+                        date: new Date().toLocaleDateString(),
+                        fileSize: file.size,
+                        createdAt: serverTimestamp()
+                    });
+
+                    uploadedCount++;
                 }
+
+                message.textContent = `Gallery images uploaded successfully! (${uploadedCount} images)`;
+                message.style.color = 'green';
+                
+                // Reset form
+                selectedFiles = [];
+                galleryPreviews.innerHTML = '';
+                galleryInput.value = '';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             } catch (error) {
-                console.error('Error loading hero:', error);
+                console.error('Gallery upload error:', error);
+                message.textContent = `Error uploading gallery images: ${error.message}`;
+                message.style.color = 'red';
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
-        }
+        });
 
-        async function loadNews() {
-            const newsList = document.getElementById('newsList');
-            newsList.innerHTML = '';
-            try {
-                const querySnapshot = await getDocs(collection(db, 'news'));
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const item = document.createElement('div');
-                    item.className = 'item';
-                    item.innerHTML = `
-                        <div class="item-content">
-                            <h3>${data.title}</h3>
-                            <p>${data.date} - ${data.badge}</p>
-                        </div>
-                        <div class="item-actions">
-                            <button class="edit-btn" onclick="editNews('${doc.id}')">Edit</button>
-                            <button class="delete-btn" onclick="deleteItem('news', '${doc.id}')">Delete</button>
-                        </div>
-                    `;
-                    newsList.appendChild(item);
-                });
-            } catch (error) {
-                console.error('Error loading news:', error);
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mobileMenuBtn.contains(e.target) && !navMenu.contains(e.target)) {
+                navMenu.classList.remove('show');
             }
-        }
+        });
 
-        async function loadActivities() {
-            const activitiesList = document.getElementById('activitiesList');
-            activitiesList.innerHTML = '';
-            try {
-                const querySnapshot = await getDocs(collection(db, 'activities'));
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const item = document.createElement('div');
-                    item.className = 'item';
-                    item.innerHTML = `
-                        <div class="item-content">
-                            <h3>${data.title}</h3>
-                            <p>${data.date} - <span class="status status-${data.status}">${data.status}</span></p>
-                        </div>
-                        <div class="item-actions">
-                            <button class="edit-btn" onclick="editActivity('${doc.id}')">Edit</button>
-                            <button class="delete-btn" onclick="deleteItem('activities', '${doc.id}')">Delete</button>
-                        </div>
-                    `;
-                    activitiesList.appendChild(item);
-                });
-            } catch (error) {
-                console.error('Error loading activities:', error);
-            }
-        }
-
-        async function loadGallery() {
-            const galleryList = document.getElementById('galleryList');
-            galleryList.innerHTML = '';
-            try {
-                const querySnapshot = await getDocs(collection(db, 'gallery'));
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const item = document.createElement('div');
-                    item.className = 'item';
-                    item.innerHTML = `
-                        <div class="item-content">
-                            <h3>${data.title}</h3>
-                            <p>${data.date}</p>
-                        </div>
-                        <div class="item-actions">
-                            <button class="edit-btn" onclick="editGallery('${doc.id}')">Edit</button>
-                            <button class="delete-btn" onclick="deleteItem('gallery', '${doc.id}')">Delete</button>
-                        </div>
-                    `;
-                    galleryList.appendChild(item);
-                });
-            } catch (error) {
-                console.error('Error loading gallery:', error);
-            }
-        }
-
-        // Global functions for buttons
-        window.deleteItem = async (collectionName, id) => {
-            if (confirm('Are you sure you want to delete this item?')) {
-                try {
-                    await deleteDoc(doc(db, collectionName, id));
-                    alert('Item deleted successfully!');
-                    if (collectionName === 'news') loadNews();
-                    else if (collectionName === 'activities') loadActivities();
-                    else if (collectionName === 'gallery') loadGallery();
-                } catch (error) {
-                    alert('Error deleting item: ' + error.message);
-                }
-            }
-        };
-
-        window.editNews = (id) => {
-            // Implement edit functionality
-            alert('Edit functionality to be implemented');
-        };
-
-        window.editActivity = (id) => {
-            alert('Edit functionality to be implemented');
-        };
-
-        window.editGallery = (id) => {
-            alert('Edit functionality to be implemented');
-        };
+        // Close mobile menu after clicking a link
+        document.querySelectorAll('#nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('show');
+            });
+        });
     </script>
 </body>
 </html>

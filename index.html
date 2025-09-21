@@ -783,7 +783,7 @@
                     <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
                     <li><a href="/pages/news.html"><i class="fas fa-newspaper"></i> News</a></li>
                     <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="/admin.html"><i class="fas fa-envelope"></i> admin</a></li>
+                    <li><a href="/admin.html"><i class="fas fa-user-shield"></i> Admin</a></li>
                 </ul>
                 <button class="mobile-menu-btn" id="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -870,7 +870,7 @@
                         <p>November 2015</p>
                     </div>
                 </div>
-                
+            
                 <div class="gallery-item" onclick="openModal(1)">
                     <img src="/image/telu 28.jpg" alt="Community Visit">
                     <div class="gallery-caption">
@@ -1030,7 +1030,7 @@
                             <span class="news-date"><i class="fas fa-calendar"></i> ${new Date(data.date).toLocaleDateString()}</span>
                             <h3 class="news-title">${data.title}</h3>
                             <p class="news-excerpt">${data.excerpt}</p>
-                            <a href="#" class="read-more">Read more <i class="fas fa-arrow-right"></i></a>
+                            <a href="/pages/news.html" class="">Read more <i class="fas fa-arrow-right"></i></a>
                         </div>
                     `;
                     newsContainer.appendChild(newsCard);

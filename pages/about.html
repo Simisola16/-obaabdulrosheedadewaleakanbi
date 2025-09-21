@@ -66,13 +66,23 @@
         }
         
         .logo-text h1 {
-            font-size: 1.8rem;
+            font-size: 1rem;
             font-weight: 700;
         }
         
         .logo-text p {
             font-size: 0.9rem;
             opacity: 0.9;
+        }
+
+        /* Added styles for logo image */
+        .logo-image img {
+            width: 100px;
+            height: auto;
+        }
+
+        .logo-image img:hover {
+            transform: scale(1.1);
         }
         
         nav ul {
@@ -240,18 +250,18 @@
             margin-bottom: 60px;
         }
 
-                .about-image {
-                    flex: 1;
-                    border-radius: 10px;
-                    overflow: hidden;
-                    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-                    height: 450px;
-                    width: 100%;
-                    background: url('image/telu 15.jpg') center/cover;
-                    opacity: 0;
-                    animation: slideInLeft 1s ease-out 1.5s forwards;
-                    transition: transform 0.3s ease;
-                }
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            height: 450px;
+            width: 100%;
+            background: url('image/telu 15.jpg') center/cover;
+            opacity: 0;
+            animation: slideInLeft 1s ease-out 1.5s forwards;
+            transition: transform 0.3s ease;
+        }
 
         .about-image:hover {
             transform: scale(1.02);
@@ -482,6 +492,7 @@
                 flex-direction: column;
                 padding: 20px;
                 gap: 15px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             }
             
             nav ul.show {
@@ -505,12 +516,12 @@
     <header>
         <div class="header-content">
             <div class=" container logo">
-                <div class="logo-icon">
-                    <i class="fas fa-crown"></i>
+                <div class="logo-image">
+                    <img src="/image/oluwo_logo-removebg-preview.png" alt="">
                 </div>
                 <div class="logo-text">
-                    <h1>Oluwo of Iwoland</h1>
-                    <p>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</p>
+                    <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                    <p>Oluwo of Iwoland</p>
                 </div>
             </div>
             
@@ -522,7 +533,7 @@
                     <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
                     <li><a href="/pages/news.html"><i class="fas fa-newspaper"></i> News</a></li>
                     <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="/admin.html"><i class="fas fa-envelope"></i> admin</a></li>
+                    <li><a href="/admin.html"><i class="fas fa-user-shield"></i> Admin</a></li>
                 </ul>
                 <button class="mobile-menu-btn" id="mobile-menu">
                     <i class="fas fa-bars"></i>
