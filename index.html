@@ -187,8 +187,8 @@
         .hero-image {
             width: 100%;
             height: 100%;
-            background: url('/image/telu\ 2.jpg') center/cover;
-             
+            background: url('image/telu_2-removebg-preview.png') center/cover;
+
         }
         
         .hero-right {
@@ -355,15 +355,7 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             height: 450px;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(45deg, var(--gold), var(--light-gold));
-            color: var(--dark-gray);
-            font-size: 1.2rem;
-            font-weight: 600;
-            background: url('/image/telu\ 15.jpg') center/cover;
+            background: url('image/telu 15.jpg') center/cover;
         }
         
         .about-text {
@@ -687,26 +679,29 @@
             .hero-container {
                 flex-direction: column;
             }
-            
+
             .hero-left {
                 width: 100%;
-                height: 400px;
+                height: 50vh;
+                order: 1;
             }
-            
+
             .hero-right {
                 width: 100%;
+                order: 2;
+                padding-left: 30px;
             }
-            
+
             .about-content {
                 flex-direction: column;
             }
-            
+
             .about-image, .about-text {
                 flex: none;
                 width: 100%;
             }
         }
-        
+
         @media (max-width: 768px) {
             nav ul {
                 display: none;
@@ -719,32 +714,42 @@
                 padding: 20px;
                 gap: 15px;
             }
-            
+
             nav ul.show {
                 display: flex;
             }
-            
+
             .mobile-menu-btn {
                 display: block;
             }
-            
+
             .news-card {
                 flex-direction: column;
             }
-            
+
             .news-image {
                 flex: 0 0 180px;
                 width: 100%;
             }
-            
+
             .gallery-container {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .hero-left {
+                height: 40vh;
+            }
+
+            .hero-image {
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center center;
             }
         }
         
         @media (max-width: 576px) {
             .hero-left {
-                height: 300px;
+                height: 35vh;
             }
             
             .section-title h2 {
@@ -759,6 +764,7 @@
                 grid-template-columns: 1fr;
             }
         }
+        
     </style>
 </head>
 <body>
@@ -767,7 +773,7 @@
         <div class="header-content">
             <div class=" container logo">
                 <div class="logo-image">
-                    <img src="/image/oluwo_logo-removebg-preview.png" alt="">
+                    <img src="image/oluwo_logo-removebg-preview.png" alt="">
                 </div>
                 <div class="logo-text">
                     <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
@@ -864,7 +870,7 @@
             </div>
             <div class="gallery-container">
                 <div class="gallery-item" onclick="openModal(0)">
-                    <img src="/image/telu 25.jpg" alt="Traditional Coronation Ceremony">
+                    <img src="image/telu 25.jpg" alt="Traditional Coronation Ceremony">
                     <div class="gallery-caption">
                         <h3>Traditional Coronation Ceremony</h3>
                         <p>November 2015</p>
@@ -872,7 +878,7 @@
                 </div>
             
                 <div class="gallery-item" onclick="openModal(1)">
-                    <img src="/image/telu 28.jpg" alt="Community Visit">
+                    <img src="image/telu 28.jpg" alt="Community Visit">
                     <div class="gallery-caption">
                         <h3>Community Development Visit</h3>
                         <p>January 2023</p>
@@ -880,7 +886,7 @@
                 </div>
                 
                 <div class="gallery-item" onclick="openModal(2)">
-                    <img src="/image/telu 17.jpg" alt="Cultural Event">
+                    <img src="image/telu 17.jpg" alt="Cultural Event">
                     <div class="gallery-caption">
                         <h3>Annual Cultural Festival</h3>
                         <p>August 2022</p>
@@ -888,7 +894,7 @@
                 </div>
                 
                 <div class="gallery-item" onclick="openModal(3)">
-                    <img src="/image/telu 21.jpg" alt="Diplomatic Meeting">
+                    <img src="image/telu 21.jpg" alt="Diplomatic Meeting">
                     <div class="gallery-caption">
                         <h3>Diplomatic Meeting</h3>
                         <p>March 2023</p>
@@ -896,7 +902,7 @@
                 </div>
                 
                 <div class="gallery-item" onclick="openModal(4)">
-                    <img src="/image/telu 12.jpg" alt="Royal Court">
+                    <img src="image/telu 12.jpg" alt="Royal Court">
                     <div class="gallery-caption">
                         <h3>Royal Court Session</h3>
                         <p>February 2023</p>
@@ -904,7 +910,7 @@
                 </div>
                 
                 <div class="gallery-item" onclick="openModal(5)">
-                    <img src="/image/telu 14.jpg" alt="Youth Program">
+                    <img src="image/telu 14.jpg" alt="Youth Program">
                     <div class="gallery-caption">
                         <h3>Youth Empowerment Program</h3>
                         <p>May 2023</p>
@@ -927,6 +933,7 @@
     
     <!-- Footer -->
     <footer id="contact">
+    
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
@@ -1178,9 +1185,7 @@
 
         // Update galleryImages array after loading
         setTimeout(() => {
-            // Removed invalid import statement inside function to fix import declaration error
-            // Instead, rely on existing db instance and functions already imported above
-            // This block can be removed or replaced with a proper function call if needed
+            galleryImages = window.galleryImages;
         }, 1000);
     </script>
 </body>

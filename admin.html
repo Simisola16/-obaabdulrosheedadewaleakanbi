@@ -232,8 +232,7 @@
         }
 
         .btn {
-            width: 100%;
-            padding: 12px;
+            padding: 12px 20px;
             background: var(--red);
             color: var(--white);
             border: none;
@@ -243,6 +242,10 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+        }
+
+        .btn-full {
+            width: 100%;
         }
 
         .btn::after {
@@ -283,6 +286,22 @@
             background: #ccc;
             cursor: not-allowed;
             transform: none;
+        }
+
+        .btn-secondary {
+            background: var(--dark-gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gold);
+        }
+
+        .btn-danger {
+            background: var(--red);
+        }
+
+        .btn-danger:hover {
+            background: var(--dark-red);
         }
 
         .error {
@@ -619,6 +638,129 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
 
+        /* Item list styles */
+        .items-container {
+            margin-top: 30px;
+            border-top: 2px solid var(--light-gold);
+            padding-top: 20px;
+        }
+
+        .items-container h4 {
+            margin-bottom: 15px;
+            color: var(--dark-red);
+            font-size: 1.2rem;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-card {
+            background: var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .item-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .item-card .form-group {
+            margin-bottom: 15px;
+        }
+
+        .item-card img {
+            max-width: 200px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .item-message {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            padding: 5px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Animation for item removal */
+        @keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        .removing {
+            animation: slideOut 0.3s ease forwards;
+        }
+
+        /* Confirmation dialog */
+        .confirmation-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .confirmation-dialog.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .confirmation-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.9);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .confirmation-dialog.active .confirmation-content {
+            transform: scale(1);
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
         @media (max-width: 992px) {
             .header-content {
                 flex-direction: column;
@@ -699,6 +841,18 @@
             .logo-text p {
                 font-size: 0.85rem;
             }
+
+            .item-actions {
+                flex-direction: column;
+            }
+
+            .confirmation-content {
+                padding: 20px;
+            }
+
+            .confirmation-buttons {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 576px) {
@@ -718,6 +872,10 @@
 
             .logo-icon {
                 font-size: 2.5rem;
+            }
+
+            .item-card {
+                padding: 15px;
             }
         }
     </style>
@@ -765,7 +923,7 @@
                     <label for="password">Password</label>
                     <input type="password" id="password" required>
                 </div>
-                <button type="submit" class="btn">Login</button>
+                <button type="submit" class="btn btn-full">Login</button>
             </form>
             <div id="login-error" class="error"></div>
         </div>
@@ -793,9 +951,14 @@
                         </label>
                         <img id="hero-preview" class="preview" style="display: none;">
                     </div>
-                    <button type="submit" class="btn">Update Hero Image</button>
+                    <button type="submit" class="btn btn-full">Update Hero Image</button>
                 </form>
                 <div id="hero-message"></div>
+                
+                <div class="items-container">
+                    <h4>Current Hero Image</h4>
+                    <div id="hero-item-container"></div>
+                </div>
             </div>
 
             <!-- News Tab -->
@@ -828,9 +991,14 @@
                         </label>
                         <img id="news-preview" class="preview" style="display: none;">
                     </div>
-                    <button type="submit" class="btn">Add News Item</button>
+                    <button type="submit" class="btn btn-full">Add News Item</button>
                 </form>
                 <div id="news-message"></div>
+                
+                <div class="items-container">
+                    <h4>Existing News Items</h4>
+                    <div id="news-items-container"></div>
+                </div>
             </div>
 
             <!-- Activities Tab -->
@@ -866,9 +1034,14 @@
                         </label>
                         <img id="activity-preview" class="preview" style="display: none;">
                     </div>
-                    <button type="submit" class="btn">Add Activity</button>
+                    <button type="submit" class="btn btn-full">Add Activity</button>
                 </form>
                 <div id="activities-message"></div>
+                
+                <div class="items-container">
+                    <h4>Existing Activities</h4>
+                    <div id="activities-items-container"></div>
+                </div>
             </div>
 
             <!-- Gallery Tab -->
@@ -883,9 +1056,26 @@
                         </label>
                     </div>
                     <div id="gallery-previews" class="gallery-previews"></div>
-                    <button type="submit" class="btn" style="margin-top: 20px;">Upload Gallery Images</button>
+                    <button type="submit" class="btn btn-full" style="margin-top: 20px;">Upload Gallery Images</button>
                 </form>
                 <div id="gallery-message"></div>
+                
+                <div class="items-container">
+                    <h4>Existing Gallery Images</h4>
+                    <div id="gallery-items-container" class="gallery-previews"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Dialog -->
+    <div class="confirmation-dialog" id="confirmation-dialog">
+        <div class="confirmation-content">
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            <div class="confirmation-buttons">
+                <button class="btn btn-secondary" id="cancel-delete">Cancel</button>
+                <button class="btn btn-danger" id="confirm-delete">Delete</button>
             </div>
         </div>
     </div>
@@ -894,7 +1084,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, collection, addDoc, getDocs, getDoc, deleteDoc, updateDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBaQDRdl5mmCsCkL4kf6r_rNrL-m-s6_cg",
@@ -914,6 +1104,49 @@
         const adminPanel = document.getElementById('admin-panel');
         const loginForm = document.getElementById('login-form');
         const logoutBtn = document.getElementById('logout-btn');
+        const confirmationDialog = document.getElementById('confirmation-dialog');
+        const cancelDeleteBtn = document.getElementById('cancel-delete');
+        const confirmDeleteBtn = document.getElementById('confirm-delete');
+
+        // Store the item to be deleted
+        let itemToDelete = null;
+
+        // Show confirmation dialog
+        function showConfirmationDialog(item) {
+            itemToDelete = item;
+            confirmationDialog.classList.add('active');
+        }
+
+        // Hide confirmation dialog
+        function hideConfirmationDialog() {
+            confirmationDialog.classList.remove('active');
+            itemToDelete = null;
+        }
+
+        // Event listeners for confirmation dialog
+        cancelDeleteBtn.addEventListener('click', hideConfirmationDialog);
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (itemToDelete) {
+                const { type, id } = itemToDelete;
+                try {
+                    await deleteDoc(doc(db, type, id));
+                    
+                    // Animate removal
+                    const itemElement = document.querySelector(`[data-id="${id}"]`);
+                    if (itemElement) {
+                        itemElement.classList.add('removing');
+                        setTimeout(() => {
+                            itemElement.remove();
+                        }, 300);
+                    }
+                    
+                    hideConfirmationDialog();
+                } catch (error) {
+                    console.error('Error deleting item:', error);
+                    hideConfirmationDialog();
+                }
+            }
+        });
 
         // Check auth state
         onAuthStateChanged(auth, (user) => {
@@ -924,6 +1157,12 @@
                 setTimeout(() => {
                     adminPanel.style.opacity = 1;
                 }, 10);
+                
+                // Load all data
+                fetchHeroImage();
+                fetchNewsItems();
+                fetchActivities();
+                fetchGalleryImages();
             } else {
                 loginContainer.style.display = 'block';
                 adminPanel.style.display = 'none';
@@ -1035,6 +1274,9 @@
                 message.style.color = 'green';
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+
+                // Refresh hero image display
+                fetchHeroImage();
             } catch (error) {
                 console.error('Hero upload error:', error);
                 message.textContent = `Error updating hero image: ${error.message}`;
@@ -1043,6 +1285,47 @@
                 submitBtn.disabled = false;
             }
         });
+
+        // Fetch and display current hero image with option to replace
+        async function fetchHeroImage() {
+            const heroContainer = document.getElementById('hero-item-container');
+            heroContainer.innerHTML = '';
+            
+            const heroDocRef = doc(db, 'settings', 'hero');
+            try {
+                const heroDocSnap = await getDoc(heroDocRef);
+                if (heroDocSnap.exists()) {
+                    const heroData = heroDocSnap.data();
+                    
+                    const heroItemDiv = document.createElement('div');
+                    heroItemDiv.className = 'item-card';
+                    heroItemDiv.dataset.id = 'hero';
+                    heroItemDiv.dataset.type = 'settings';
+                    
+                    heroItemDiv.innerHTML = `
+                        <div class="form-group">
+                            <img src="${heroData.url}" alt="Hero Image" style="max-width: 100%;">
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-danger delete-item-btn">Delete Hero Image</button>
+                        </div>
+                        <div class="item-message"></div>
+                    `;
+                    
+                    heroContainer.appendChild(heroItemDiv);
+                    
+                    // Delete button handler
+                    heroItemDiv.querySelector('.delete-item-btn').addEventListener('click', () => {
+                        showConfirmationDialog({
+                            type: 'settings',
+                            id: 'hero'
+                        });
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching hero image:', error);
+            }
+        }
 
         // News form
         document.getElementById('news-form').addEventListener('submit', async (e) => {
@@ -1082,6 +1365,9 @@
                 document.getElementById('news-preview').style.display = 'none';
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                
+                // Refresh news items
+                fetchNewsItems();
             } catch (error) {
                 console.error('News upload error:', error);
                 message.textContent = `Error adding news item: ${error.message}`;
@@ -1090,6 +1376,99 @@
                 submitBtn.disabled = false;
             }
         });
+
+        // Fetch and render existing news items for editing and deleting
+        async function fetchNewsItems() {
+            const newsContainer = document.getElementById('news-items-container');
+            newsContainer.innerHTML = '';
+
+            try {
+                const newsCollection = collection(db, 'news');
+                const newsSnapshot = await getDocs(newsCollection);
+
+                newsSnapshot.forEach(docSnap => {
+                    const newsData = docSnap.data();
+                    const newsId = docSnap.id;
+
+                    const newsItemDiv = document.createElement('div');
+                    newsItemDiv.className = 'item-card';
+                    newsItemDiv.dataset.id = newsId;
+                    newsItemDiv.dataset.type = 'news';
+                    newsItemDiv.style.animationDelay = `${newsSnapshot.docs.indexOf(docSnap) * 0.1}s`;
+
+                    newsItemDiv.innerHTML = `
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="edit-news-title" value="${newsData.title}" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label>Badge</label>
+                            <input type="text" class="edit-news-badge" value="${newsData.badge}" placeholder="Badge">
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" class="edit-news-date" value="${newsData.date.toDate().toISOString().split('T')[0]}">
+                        </div>
+                        <div class="form-group">
+                            <label>Excerpt</label>
+                            <textarea class="edit-news-excerpt" rows="3">${newsData.excerpt}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <img src="${newsData.image}" alt="News Image" style="max-width: 200px;">
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary update-item-btn">Update</button>
+                            <button class="btn btn-danger delete-item-btn">Delete</button>
+                        </div>
+                        <div class="item-message"></div>
+                    `;
+
+                    newsContainer.appendChild(newsItemDiv);
+
+                    // Update button handler
+                    newsItemDiv.querySelector('.update-item-btn').addEventListener('click', async () => {
+                        const updatedTitle = newsItemDiv.querySelector('.edit-news-title').value;
+                        const updatedBadge = newsItemDiv.querySelector('.edit-news-badge').value;
+                        const updatedDate = newsItemDiv.querySelector('.edit-news-date').value;
+                        const updatedExcerpt = newsItemDiv.querySelector('.edit-news-excerpt').value;
+                        const messageDiv = newsItemDiv.querySelector('.item-message');
+
+                        try {
+                            await updateDoc(doc(db, 'news', newsId), {
+                                title: updatedTitle,
+                                badge: updatedBadge,
+                                date: new Date(updatedDate),
+                                excerpt: updatedExcerpt,
+                                image: newsData.image,
+                                createdAt: newsData.createdAt || serverTimestamp()
+                            });
+
+                            messageDiv.textContent = 'News item updated successfully!';
+                            messageDiv.style.color = 'green';
+                            
+                            // Clear message after 3 seconds
+                            setTimeout(() => {
+                                messageDiv.textContent = '';
+                            }, 3000);
+                        } catch (error) {
+                            console.error('Error updating news item:', error);
+                            messageDiv.textContent = 'Error updating news item.';
+                            messageDiv.style.color = 'red';
+                        }
+                    });
+
+                    // Delete button handler
+                    newsItemDiv.querySelector('.delete-item-btn').addEventListener('click', () => {
+                        showConfirmationDialog({
+                            type: 'news',
+                            id: newsId
+                        });
+                    });
+                });
+            } catch (error) {
+                console.error('Error fetching news items:', error);
+            }
+        }
 
         // Activities form
         document.getElementById('activities-form').addEventListener('submit', async (e) => {
@@ -1129,6 +1508,9 @@
                 document.getElementById('activity-preview').style.display = 'none';
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                
+                // Refresh activities
+                fetchActivities();
             } catch (error) {
                 console.error('Activity upload error:', error);
                 message.textContent = `Error adding activity: ${error.message}`;
@@ -1137,6 +1519,102 @@
                 submitBtn.disabled = false;
             }
         });
+
+        // Fetch and render existing activities for editing and deleting
+        async function fetchActivities() {
+            const activitiesContainer = document.getElementById('activities-items-container');
+            activitiesContainer.innerHTML = '';
+
+            try {
+                const activitiesCollection = collection(db, 'activities');
+                const activitiesSnapshot = await getDocs(activitiesCollection);
+
+                activitiesSnapshot.forEach(docSnap => {
+                    const activityData = docSnap.data();
+                    const activityId = docSnap.id;
+
+                    const activityItemDiv = document.createElement('div');
+                    activityItemDiv.className = 'item-card';
+                    activityItemDiv.dataset.id = activityId;
+                    activityItemDiv.dataset.type = 'activities';
+                    activityItemDiv.style.animationDelay = `${activitiesSnapshot.docs.indexOf(docSnap) * 0.1}s`;
+
+                    activityItemDiv.innerHTML = `
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="edit-activity-title" value="${activityData.title}" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select class="edit-activity-status">
+                                <option value="upcoming" ${activityData.status === 'upcoming' ? 'selected' : ''}>Upcoming</option>
+                                <option value="past" ${activityData.status === 'past' ? 'selected' : ''}>Past</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="text" class="edit-activity-date" value="${activityData.date}" placeholder="Date">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="edit-activity-desc" rows="3">${activityData.desc}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <img src="${activityData.image}" alt="Activity Image" style="max-width: 200px;">
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-secondary update-item-btn">Update</button>
+                            <button class="btn btn-danger delete-item-btn">Delete</button>
+                        </div>
+                        <div class="item-message"></div>
+                    `;
+
+                    activitiesContainer.appendChild(activityItemDiv);
+
+                    // Update button handler
+                    activityItemDiv.querySelector('.update-item-btn').addEventListener('click', async () => {
+                        const updatedTitle = activityItemDiv.querySelector('.edit-activity-title').value;
+                        const updatedStatus = activityItemDiv.querySelector('.edit-activity-status').value;
+                        const updatedDate = activityItemDiv.querySelector('.edit-activity-date').value;
+                        const updatedDesc = activityItemDiv.querySelector('.edit-activity-desc').value;
+                        const messageDiv = activityItemDiv.querySelector('.item-message');
+
+                        try {
+                            await updateDoc(doc(db, 'activities', activityId), {
+                                title: updatedTitle,
+                                status: updatedStatus,
+                                date: updatedDate,
+                                desc: updatedDesc,
+                                image: activityData.image,
+                                createdAt: activityData.createdAt || serverTimestamp()
+                            });
+
+                            messageDiv.textContent = 'Activity updated successfully!';
+                            messageDiv.style.color = 'green';
+                            
+                            // Clear message after 3 seconds
+                            setTimeout(() => {
+                                messageDiv.textContent = '';
+                            }, 3000);
+                        } catch (error) {
+                            console.error('Error updating activity:', error);
+                            messageDiv.textContent = 'Error updating activity.';
+                            messageDiv.style.color = 'red';
+                        }
+                    });
+
+                    // Delete button handler
+                    activityItemDiv.querySelector('.delete-item-btn').addEventListener('click', () => {
+                        showConfirmationDialog({
+                            type: 'activities',
+                            id: activityId
+                        });
+                    });
+                });
+            } catch (error) {
+                console.error('Error fetching activities:', error);
+            }
+        }
 
         // Gallery upload handling
         const galleryInput = document.getElementById('gallery-input');
@@ -1234,6 +1712,9 @@
                 galleryInput.value = '';
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                
+                // Refresh gallery
+                fetchGalleryImages();
             } catch (error) {
                 console.error('Gallery upload error:', error);
                 message.textContent = `Error uploading gallery images: ${error.message}`;
@@ -1242,6 +1723,48 @@
                 submitBtn.disabled = false;
             }
         });
+
+        // Fetch and render existing gallery images with delete option
+        async function fetchGalleryImages() {
+            const galleryContainer = document.getElementById('gallery-items-container');
+            galleryContainer.innerHTML = '';
+
+            try {
+                const galleryCollection = collection(db, 'gallery');
+                const gallerySnapshot = await getDocs(galleryCollection);
+
+                gallerySnapshot.forEach(docSnap => {
+                    const galleryData = docSnap.data();
+                    const galleryId = docSnap.id;
+
+                    const galleryItemDiv = document.createElement('div');
+                    galleryItemDiv.className = 'gallery-preview-item';
+                    galleryItemDiv.dataset.id = galleryId;
+                    galleryItemDiv.dataset.type = 'gallery';
+                    galleryItemDiv.style.animationDelay = `${gallerySnapshot.docs.indexOf(docSnap) * 0.1}s`;
+
+                    const img = document.createElement('img');
+                    img.src = galleryData.src;
+                    img.alt = galleryData.title;
+                    galleryItemDiv.appendChild(img);
+
+                    const removeBtn = document.createElement('button');
+                    removeBtn.className = 'remove-btn';
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.addEventListener('click', () => {
+                        showConfirmationDialog({
+                            type: 'gallery',
+                            id: galleryId
+                        });
+                    });
+
+                    galleryItemDiv.appendChild(removeBtn);
+                    galleryContainer.appendChild(galleryItemDiv);
+                });
+            } catch (error) {
+                console.error('Error fetching gallery images:', error);
+            }
+        }
 
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobile-menu');

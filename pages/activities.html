@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore the royal activities and events of His Royal Majesty, Oba Abdulrosheed Adewale Akanbi, the Oluwo of Iwoland. Discover cultural heritage and royal engagements.">
     <title>Royal Activities - Oluwo of Iwoland</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -58,14 +59,11 @@
             gap: 15px;
         }
 
-        .logo-icon {
-            font-size: 2.5rem;
-            color: var(--gold);
-        }
 
         .logo-text h1 {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .logo-text p {
@@ -559,31 +557,33 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="header-content">
-            <div class="container logo">
-                <div class="logo-image">
-                    <img src="../image/oluwo_logo-removebg-preview.png" alt="Oluwo Logo">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="../image/oluwo_logo-removebg-preview.png" alt="Oluwo Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                        <p>Oluwo of Iwoland</p>
+                    </div>
                 </div>
-                <div class="logo-text">
-                    <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
-                    <p>Oluwo of Iwoland</p>
-                </div>
-            </div>
 
-            <nav class="container">
-                <ul id="nav-menu">
-                    <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
-                    <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-                    <li><a href="news.html"><i class="fas fa-newspaper"></i> News</a></li>
-                    <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="../admin-gallery.html"><i class="fas fa-user-shield"></i> Admin</a></li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i> News</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="../admin-gallery.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+                    </ul>
+                    <button class="mobile-menu-btn" id="mobile-menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+            </div>
         </div>
     </header>
 
@@ -665,7 +665,7 @@
             </div>
 
             <div class="copyright">
-                <p>&copy; 2023 Oluwo of Iwoland - All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--gold);"></i> for the Kingdom</p>
+                <p>&copy; 2024 Oluwo of Iwoland - All Rights Reserved | Designed with <i class="fas fa-heart" style="color: var(--gold);"></i> for the Kingdom</p>
             </div>
         </div>
     </footer>
@@ -818,7 +818,9 @@
         function openModal(index) {
             currentIndex = index;
             const activity = filteredActivities[index];
-            document.getElementById('modalImg').src = activity.image;
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = activity.image;
+            modalImg.alt = activity.title;
             document.getElementById('modalTitle').textContent = activity.title;
             document.getElementById('modalDate').textContent = activity.date;
             document.getElementById('activityModal').style.display = 'block';
@@ -833,25 +835,27 @@
         function changeSlide(direction) {
             currentIndex = (currentIndex + direction + filteredActivities.length) % filteredActivities.length;
             const activity = filteredActivities[currentIndex];
-            document.getElementById('modalImg').src = activity.image;
+            const modalImg = document.getElementById('modalImg');
+            modalImg.src = activity.image;
+            modalImg.alt = activity.title;
             document.getElementById('modalTitle').textContent = activity.title;
             document.getElementById('modalDate').textContent = activity.date;
         }
 
         function shareActivity(title, desc, image) {
+            const shareUrl = window.location.href;
             if (navigator.share) {
                 navigator.share({
                     title: title,
                     text: desc,
-                    url: image
+                    url: shareUrl
                 });
             } else {
                 // Fallback - copy to clipboard
-                navigator.clipboard.writeText(`${title}\n${desc}\n${image}`).then(() => {
+                navigator.clipboard.writeText(`${title}\n${desc}\nView image: ${image}\n${shareUrl}`).then(() => {
                     alert('Activity details copied to clipboard!');
                 });
             }
-        }
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
