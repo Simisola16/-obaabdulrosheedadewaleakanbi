@@ -46,6 +46,7 @@
             top: 0;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
         }
 
@@ -1694,7 +1695,7 @@
 
                     await addDoc(collection(db, 'gallery'), {
                         src: base64Image,
-                        title: file.name,
+                        title: '',
                         date: new Date().toLocaleDateString(),
                         fileSize: file.size,
                         createdAt: serverTimestamp()
