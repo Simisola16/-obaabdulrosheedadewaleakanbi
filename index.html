@@ -1051,7 +1051,7 @@
                     newsCard.innerHTML = `
                         <div class="news-image">
                             <span class="news-badge">${data.badge}</span>
-                            <img src="${data.image}" alt="${data.title}">
+                            <img src="${data.media}" alt="${data.title}">
                         </div>
                         <div class="news-content">
                             <span class="news-date"><i class="fas fa-calendar"></i> ${(() => {
@@ -1096,7 +1096,7 @@
                     activityCard.className = 'activity-card';
                     activityCard.innerHTML = `
                         <div class="activity-img">
-                            <img src="${data.image}" alt="${data.title}">
+                            <img src="${data.media}" alt="${data.title}">
                         </div>
                         <div class="activity-content">
                             <div class="activity-date">

@@ -986,10 +986,9 @@
                     </div>
                     <div class="form-group">
                         <label for="news-media-type">Media Type</label>
-                        <select id="news-media-type" required>
-                            <option value="image">Image</option>
-                            <option value="video">Video</option>
-                        </select>
+                            <select id="news-media-type" required>
+                                <option value="image" selected>Image</option>
+                            </select>
                     </div>
                     <div class="form-group">
                         <label class="file-input">
@@ -1036,10 +1035,9 @@
                     </div>
                     <div class="form-group">
                         <label for="activity-media-type">Media Type</label>
-                        <select id="activity-media-type" required>
-                            <option value="image">Image</option>
-                            <option value="video">Video</option>
-                        </select>
+                            <select id="activity-media-type" required>
+                                <option value="image" selected>Image</option>
+                            </select>
                     </div>
                     <div class="form-group">
                         <label class="file-input">
@@ -1064,11 +1062,11 @@
                 <h3>Add Gallery Images</h3>
                 <form id="gallery-form">
                     <div class="form-group">
-                        <label class="file-input" id="gallery-upload-label">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select gallery media (images/videos, multiple allowed)</p>
-                            <input type="file" id="gallery-input" accept="image/*,video/*" multiple required>
-                        </label>
+                            <label class="file-input" id="gallery-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Click to select gallery images (multiple allowed)</p>
+                                <input type="file" id="gallery-input" accept="image/*" multiple required>
+                            </label>
                     </div>
                     <div id="gallery-previews" class="gallery-previews"></div>
                     <button type="submit" class="btn btn-full" style="margin-top: 20px;">Upload Gallery Images</button>
@@ -1269,21 +1267,22 @@
         previewMedia(document.getElementById('activity-image'), document.getElementById('activity-preview'));
 
         // Media type change handlers
-        document.getElementById('news-media-type').addEventListener('change', (e) => {
-            const input = document.getElementById('news-image');
-            input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
-            // Clear current file if type changed
-            input.value = '';
-            document.getElementById('news-preview').style.display = 'none';
-        });
+        // Removed media type change handlers to restrict to images only
+        // document.getElementById('news-media-type').addEventListener('change', (e) => {
+        //     const input = document.getElementById('news-image');
+        //     input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
+        //     // Clear current file if type changed
+        //     input.value = '';
+        //     document.getElementById('news-preview').style.display = 'none';
+        // });
 
-        document.getElementById('activity-media-type').addEventListener('change', (e) => {
-            const input = document.getElementById('activity-image');
-            input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
-            // Clear current file if type changed
-            input.value = '';
-            document.getElementById('activity-preview').style.display = 'none';
-        });
+        // document.getElementById('activity-media-type').addEventListener('change', (e) => {
+        //     const input = document.getElementById('activity-image');
+        //     input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
+        //     // Clear current file if type changed
+        //     input.value = '';
+        //     document.getElementById('activity-preview').style.display = 'none';
+        // });
 
         // Hero form
         document.getElementById('hero-form').addEventListener('submit', async (e) => {
@@ -1403,7 +1402,7 @@
                     date: new Date(date),
                     excerpt,
                     media: base64Image,
-                    mediaType: document.getElementById('news-media-type').value,
+                    mediaType: 'image',
                     createdAt: serverTimestamp()
                 });
 
@@ -1469,9 +1468,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            ${newsData.mediaType === 'video' ?
-                                `<video src="${newsData.media}" controls style="max-width: 200px;"></video>` :
-                                `<img src="${newsData.media}" alt="News Media" style="max-width: 200px;">`}
+                            <img src="${newsData.media}" alt="News Media" style="max-width: 200px;">
                         </div>
                         <div class="item-actions">
                             <button class="btn btn-secondary update-item-btn">Update</button>
@@ -1558,7 +1555,7 @@
                     date,
                     desc,
                     media: base64Image,
-                    mediaType: document.getElementById('activity-media-type').value,
+                    mediaType: 'image',
                     createdAt: serverTimestamp()
                 });
 
@@ -1627,9 +1624,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            ${activityData.mediaType === 'video' ?
-                                `<video src="${activityData.media}" controls style="max-width: 200px;"></video>` :
-                                `<img src="${activityData.media}" alt="Activity Media" style="max-width: 200px;">`}
+                            <img src="${activityData.media}" alt="Activity Media" style="max-width: 200px;">
                         </div>
                         <div class="item-actions">
                             <button class="btn btn-secondary update-item-btn">Update</button>
