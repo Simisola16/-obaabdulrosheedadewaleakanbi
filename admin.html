@@ -971,10 +971,7 @@
                             <label for="news-title">Title</label>
                             <input type="text" id="news-title" required>
                         </div>
-                        <div class="form-group">
-                            <label for="news-badge">Badge</label>
-                            <input type="text" id="news-badge" placeholder="e.g., Royal" required>
-                        </div>
+                        
                     </div>
                     <div class="form-group">
                         <label for="news-date">Date</label>
@@ -1007,7 +1004,6 @@
                     <div id="news-items-container"></div>
                 </div>
             </div>
-
             <!-- Activities Tab -->
             <div id="activities" class="tab-content">
                 <h3>Add Activity</h3>
@@ -1194,10 +1190,27 @@
             submitBtn.disabled = true;
 
             try {
+                console.log('Attempting login with email:', email);
                 await signInWithEmailAndPassword(auth, email, password);
+                console.log('Login successful');
                 document.getElementById('login-error').textContent = '';
             } catch (error) {
-                document.getElementById('login-error').textContent = 'Invalid credentials';
+                console.error('Login error:', error);
+                let errorMessage = 'Login failed';
+                if (error.code === 'auth/user-not-found') {
+                    errorMessage = 'No account found with this email address.';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMessage = 'Incorrect password.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Invalid email address format.';
+                } else if (error.code === 'auth/user-disabled') {
+                    errorMessage = 'This account has been disabled.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = 'Too many failed login attempts. Please try again later.';
+                } else {
+                    errorMessage = `Login failed: ${error.message}`;
+                }
+                document.getElementById('login-error').textContent = errorMessage;
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             }
@@ -1377,7 +1390,7 @@
         document.getElementById('news-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const title = document.getElementById('news-title').value;
-            const badge = document.getElementById('news-badge').value;
+            // c= document.getElementById('').value;
             const date = document.getElementById('news-date').value;
             const excerpt = document.getElementById('news-excerpt').value;
             const file = document.getElementById('news-image').files[0];
@@ -1398,7 +1411,7 @@
 
                 await addDoc(collection(db, 'news'), {
                     title,
-                    badge,
+
                     date: new Date(date),
                     excerpt,
                     media: base64Image,
@@ -1448,10 +1461,7 @@
                             <label>Title</label>
                             <input type="text" class="edit-news-title" value="${newsData.title}" placeholder="Title">
                         </div>
-                        <div class="form-group">
-                            <label>Badge</label>
-                            <input type="text" class="edit-news-badge" value="${newsData.badge}" placeholder="Badge">
-                        </div>
+
                         <div class="form-group">
                             <label>Date</label>
                             <input type="date" class="edit-news-date" value="${newsData.date.toDate().toISOString().split('T')[0]}">
@@ -1481,8 +1491,7 @@
 
                     // Update button handler
                     newsItemDiv.querySelector('.update-item-btn').addEventListener('click', async () => {
-                        const updatedTitle = newsItemDiv.querySelector('.edit-news-title').value;
-                        const updatedBadge = newsItemDiv.querySelector('.edit-news-badge').value;
+                        const updatedTitle = newsItemDiv.querySelector('.edit-news-title').value
                         const updatedDate = newsItemDiv.querySelector('.edit-news-date').value;
                         const updatedExcerpt = newsItemDiv.querySelector('.edit-news-excerpt').value;
                         const updatedMediaType = newsItemDiv.querySelector('.edit-news-media-type').value;
@@ -1491,7 +1500,6 @@
                         try {
                             await updateDoc(doc(db, 'news', newsId), {
                                 title: updatedTitle,
-                                badge: updatedBadge,
                                 date: new Date(updatedDate),
                                 excerpt: updatedExcerpt,
                                 mediaType: updatedMediaType,

@@ -161,22 +161,25 @@
         
         .hero-container {
             display: flex;
-            gap: 40px;
-            align-items: center;
+            gap: 10px;
+            border-color: #333;
+            /* align-items: center; */
         }
         
         .hero-left {
             flex: 2;
             border-radius: 15px;
+            border-color: #f0e6d2;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            height: 1006px;
+            height: 1000px;
             width: 100%;
             background: linear-gradient(45deg, #f0e6d2, #e8d9ac);
             display: flex; /* CHANGED FROM 'none' TO 'flex' */
             align-items: center;
             justify-content: center;
             position: relative;
+            top: 9px;
         }
         
         
@@ -246,7 +249,7 @@
             transform: scale(1.05);
         }
         
-        .news-badge {
+        /* . {
             position: absolute;
             top: 10px;
             left: 10px;
@@ -257,7 +260,7 @@
             font-size: 0.7rem;
             font-weight: 600;
             z-index: 2;
-        }
+        } */
         
         .news-content {
             flex: 1;
@@ -822,7 +825,7 @@
         <div class="ticker-content">
             <div class="ticker-item">
                 <i class="fas fa-star ticker-icon"></i>
-                <span>His Royal Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
+                <span>His Imperial Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
             </div>
             <div class="ticker-item">
                 <i class="fas fa-calendar-alt ticker-icon"></i>
@@ -1050,7 +1053,6 @@
                     newsCard.className = 'news-card';
                     newsCard.innerHTML = `
                         <div class="news-image">
-                            <span class="news-badge">${data.badge}</span>
                             <img src="${data.media}" alt="${data.title}">
                         </div>
                         <div class="news-content">

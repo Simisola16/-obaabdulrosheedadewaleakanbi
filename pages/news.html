@@ -15,25 +15,37 @@
             --dark-gold: #B8860B;
             --light-gray: #f5f5f5;
             --dark-gray: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
         }
 
         body {
-            background-color: var(--light-gray);
+            background: linear-gradient(135deg, var(--light-gray) 0%, #e8e8e8 100%);
             color: var(--dark-gray);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 16px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', serif;
+            font-weight: 600;
+        }
+
+        p {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         /* Header Styles */
@@ -150,6 +162,8 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .news-card:hover {
@@ -190,6 +204,9 @@
 
         .news-content {
             padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .news-date {
@@ -215,6 +232,15 @@
             margin-bottom: 20px;
             font-size: 1rem;
             line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-excerpt.expanded {
+            -webkit-line-clamp: unset;
+            display: block;
         }
 
         .read-more-btn {
@@ -228,6 +254,10 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            align-self: flex-start;
+            margin-top: auto;
         }
 
         .read-more-btn:hover {
@@ -399,31 +429,33 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="header-content">
-            <div class=" container logo">
-                <div class="logo-image">
-                    <img src="/image/oluwo_logo-removebg-preview.png" alt="">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-image">
+                        <img src="../image/oluwo_logo-removebg-preview.png" alt="Oluwo Logo">
+                    </div>
+                    <div class="logo-text">
+                        <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                        <p>Oluwo of Iwoland</p>
+                    </div>
                 </div>
-                <div class="logo-text">
-                    <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
-                    <p>Oluwo of Iwoland</p>
-                </div>
+
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
+                        <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                        <li><a href="news.html"><i class="fas fa-newspaper"></i> News</a></li>
+                        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                        <li><a href="../admin.html"><i class="fas fa-user-shield"></i> Admin</a></li>
+                    </ul>
+                    <button class="mobile-menu-btn" id="mobile-menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
             </div>
-            
-            <nav class="container">
-                <ul id="nav-menu">
-                    <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                    <li><a href="/pages/activities.html"><i class="fas fa-calendar-alt"></i> Activities</a></li>
-                    <li><a href="/pages/gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-                    <li><a href="/pages/news.html"><i class="fas fa-newspaper"></i> News</a></li>
-                    <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                    <li><a href="/admin.html"><i class="fas fa-user-shield"></i> Admin</a></li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobile-menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
         </div>
     </header>
 
@@ -527,6 +559,7 @@
                 }
 
                 newsContainer.innerHTML = '';
+                
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
                     const newsCard = document.createElement('div');
@@ -541,11 +574,29 @@
                                 <i class="fas fa-calendar"></i> ${new Date(data.date).toLocaleDateString()}
                             </div>
                             <h3 class="news-title">${data.title}</h3>
-                            <p class="news-excerpt">${data.excerpt}</p>
-                            
+                            <p class="news-excerpt">${data.content || data.excerpt}</p>
+                            <button class="read-more-btn">
+                                <i class="fas fa-arrow-down"></i> Read More
+                            </button>
                         </div>
                     `;
                     newsContainer.appendChild(newsCard);
+                });
+
+                // Add event listeners to all read more buttons
+                document.querySelectorAll('.read-more-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const excerpt = this.previousElementSibling;
+                        const isExpanded = excerpt.classList.contains('expanded');
+                        
+                        if (isExpanded) {
+                            excerpt.classList.remove('expanded');
+                            this.innerHTML = '<i class="fas fa-arrow-down"></i> Read More';
+                        } else {
+                            excerpt.classList.add('expanded');
+                            this.innerHTML = '<i class="fas fa-arrow-up"></i> Show Less';
+                        }
+                    });
                 });
             } catch (error) {
                 console.error('Error loading news:', error);
