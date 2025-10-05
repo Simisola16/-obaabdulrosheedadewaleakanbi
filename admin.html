@@ -985,12 +985,19 @@
                         <textarea id="news-excerpt" rows="3" required></textarea>
                     </div>
                     <div class="form-group">
+                        <label for="news-media-type">Media Type</label>
+                        <select id="news-media-type" required>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="file-input">
                             <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select news image</p>
+                            <p>Click to select news media</p>
                             <input type="file" id="news-image" accept="image/*" required>
                         </label>
-                        <img id="news-preview" class="preview" style="display: none;">
+                        <div id="news-preview" class="preview" style="display: none;"></div>
                     </div>
                     <button type="submit" class="btn btn-full">Add News Item</button>
                 </form>
@@ -1028,12 +1035,19 @@
                         <textarea id="activity-desc" rows="3" required></textarea>
                     </div>
                     <div class="form-group">
+                        <label for="activity-media-type">Media Type</label>
+                        <select id="activity-media-type" required>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label class="file-input">
                             <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select activity image</p>
+                            <p>Click to select activity media</p>
                             <input type="file" id="activity-image" accept="image/*" required>
                         </label>
-                        <img id="activity-preview" class="preview" style="display: none;">
+                        <div id="activity-preview" class="preview" style="display: none;"></div>
                     </div>
                     <button type="submit" class="btn btn-full">Add Activity</button>
                 </form>
@@ -1052,8 +1066,8 @@
                     <div class="form-group">
                         <label class="file-input" id="gallery-upload-label">
                             <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select gallery images (multiple allowed)</p>
-                            <input type="file" id="gallery-input" accept="image/*" multiple required>
+                            <p>Click to select gallery media (images/videos, multiple allowed)</p>
+                            <input type="file" id="gallery-input" accept="image/*,video/*" multiple required>
                         </label>
                     </div>
                     <div id="gallery-previews" class="gallery-previews"></div>
@@ -1221,23 +1235,55 @@
         }
 
         // File preview functions
-        function previewImage(input, preview) {
+        function previewMedia(input, previewContainer) {
             input.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        preview.src = e.target.result;
-                        preview.style.display = 'block';
+                        previewContainer.innerHTML = '';
+                        if (file.type.startsWith('video/')) {
+                            const video = document.createElement('video');
+                            video.src = e.target.result;
+                            video.controls = true;
+                            video.style.maxWidth = '200px';
+                            video.style.maxHeight = '200px';
+                            previewContainer.appendChild(video);
+                        } else {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.maxWidth = '200px';
+                            previewContainer.appendChild(img);
+                        }
+                        previewContainer.style.display = 'block';
                     };
                     reader.readAsDataURL(file);
+                } else {
+                    previewContainer.style.display = 'none';
                 }
             });
         }
 
-        previewImage(document.getElementById('hero-image'), document.getElementById('hero-preview'));
-        previewImage(document.getElementById('news-image'), document.getElementById('news-preview'));
-        previewImage(document.getElementById('activity-image'), document.getElementById('activity-preview'));
+        previewMedia(document.getElementById('hero-image'), document.getElementById('hero-preview'));
+        previewMedia(document.getElementById('news-image'), document.getElementById('news-preview'));
+        previewMedia(document.getElementById('activity-image'), document.getElementById('activity-preview'));
+
+        // Media type change handlers
+        document.getElementById('news-media-type').addEventListener('change', (e) => {
+            const input = document.getElementById('news-image');
+            input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
+            // Clear current file if type changed
+            input.value = '';
+            document.getElementById('news-preview').style.display = 'none';
+        });
+
+        document.getElementById('activity-media-type').addEventListener('change', (e) => {
+            const input = document.getElementById('activity-image');
+            input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
+            // Clear current file if type changed
+            input.value = '';
+            document.getElementById('activity-preview').style.display = 'none';
+        });
 
         // Hero form
         document.getElementById('hero-form').addEventListener('submit', async (e) => {
@@ -1356,7 +1402,8 @@
                     badge,
                     date: new Date(date),
                     excerpt,
-                    image: base64Image,
+                    media: base64Image,
+                    mediaType: document.getElementById('news-media-type').value,
                     createdAt: serverTimestamp()
                 });
 
@@ -1415,7 +1462,16 @@
                             <textarea class="edit-news-excerpt" rows="3">${newsData.excerpt}</textarea>
                         </div>
                         <div class="form-group">
-                            <img src="${newsData.image}" alt="News Image" style="max-width: 200px;">
+                            <label>Media Type</label>
+                            <select class="edit-news-media-type">
+                                <option value="image" ${newsData.mediaType === 'image' ? 'selected' : ''}>Image</option>
+                                <option value="video" ${newsData.mediaType === 'video' ? 'selected' : ''}>Video</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            ${newsData.mediaType === 'video' ?
+                                `<video src="${newsData.media}" controls style="max-width: 200px;"></video>` :
+                                `<img src="${newsData.media}" alt="News Media" style="max-width: 200px;">`}
                         </div>
                         <div class="item-actions">
                             <button class="btn btn-secondary update-item-btn">Update</button>
@@ -1432,6 +1488,7 @@
                         const updatedBadge = newsItemDiv.querySelector('.edit-news-badge').value;
                         const updatedDate = newsItemDiv.querySelector('.edit-news-date').value;
                         const updatedExcerpt = newsItemDiv.querySelector('.edit-news-excerpt').value;
+                        const updatedMediaType = newsItemDiv.querySelector('.edit-news-media-type').value;
                         const messageDiv = newsItemDiv.querySelector('.item-message');
 
                         try {
@@ -1440,13 +1497,14 @@
                                 badge: updatedBadge,
                                 date: new Date(updatedDate),
                                 excerpt: updatedExcerpt,
-                                image: newsData.image,
+                                mediaType: updatedMediaType,
+                                media: newsData.media,
                                 createdAt: newsData.createdAt || serverTimestamp()
                             });
 
                             messageDiv.textContent = 'News item updated successfully!';
                             messageDiv.style.color = 'green';
-                            
+
                             // Clear message after 3 seconds
                             setTimeout(() => {
                                 messageDiv.textContent = '';
@@ -1499,7 +1557,8 @@
                     status,
                     date,
                     desc,
-                    image: base64Image,
+                    media: base64Image,
+                    mediaType: document.getElementById('activity-media-type').value,
                     createdAt: serverTimestamp()
                 });
 
@@ -1561,7 +1620,16 @@
                             <textarea class="edit-activity-desc" rows="3">${activityData.desc}</textarea>
                         </div>
                         <div class="form-group">
-                            <img src="${activityData.image}" alt="Activity Image" style="max-width: 200px;">
+                            <label>Media Type</label>
+                            <select class="edit-activity-media-type">
+                                <option value="image" ${activityData.mediaType === 'image' ? 'selected' : ''}>Image</option>
+                                <option value="video" ${activityData.mediaType === 'video' ? 'selected' : ''}>Video</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            ${activityData.mediaType === 'video' ?
+                                `<video src="${activityData.media}" controls style="max-width: 200px;"></video>` :
+                                `<img src="${activityData.media}" alt="Activity Media" style="max-width: 200px;">`}
                         </div>
                         <div class="item-actions">
                             <button class="btn btn-secondary update-item-btn">Update</button>
@@ -1698,6 +1766,7 @@
                         title: '',
                         date: new Date().toLocaleDateString(),
                         fileSize: file.size,
+                        type: file.type.startsWith('video') ? 'video' : 'image',
                         createdAt: serverTimestamp()
                     });
 

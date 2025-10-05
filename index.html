@@ -1114,39 +1114,44 @@
             }
         }
 
-        async function loadGallery() {
-            const galleryContainer = document.querySelector('.gallery-container');
-            galleryContainer.innerHTML = ''; // Clear static content
-            window.galleryImages = [];
+async function loadGallery() {
+    const galleryContainer = document.querySelector('.gallery-container');
+    galleryContainer.innerHTML = ''; // Clear static content
+    window.galleryImages = [];
 
-            try {
-                const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
-                const querySnapshot = await getDocs(q);
-                let index = 0;
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data();
-                    window.galleryImages.push({
-                        src: data.src,
-                        title: data.title,
-                        date: data.date
-                    });
-                    const galleryItem = document.createElement('div');
-                    galleryItem.className = 'gallery-item';
-                    galleryItem.onclick = () => openModal(index);
-                    galleryItem.innerHTML = `
-                        <img src="${data.src}" alt="${data.title}">
-                        <div class="gallery-caption">
-                            <h3>${data.title}</h3>
-                            <p>${data.date}</p>
-                        </div>
-                    `;
-                    galleryContainer.appendChild(galleryItem);
-                    index++;
-                });
-            } catch (error) {
-                console.error('Error loading gallery:', error);
-            }
-        }
+    try {
+        const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        let index = 0;
+        let count = 0;
+        querySnapshot.forEach((doc) => {
+            // Limit to 6 images
+            if (count >= 6) return;
+            
+            const data = doc.data();
+            window.galleryImages.push({
+                src: data.src,
+                title: data.title,
+                date: data.date
+            });
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.onclick = () => openModal(index);
+            galleryItem.innerHTML = `
+                <img src="${data.src}" alt="${data.title}">
+                <div class="gallery-caption">
+                    <h3>${data.title}</h3>
+                    <p>${data.date}</p>
+                </div>
+            `;
+            galleryContainer.appendChild(galleryItem);
+            index++;
+            count++;
+        });
+    } catch (error) {
+        console.error('Error loading gallery:', error);
+    }
+}
     </script>
 
     <script>
