@@ -6,6 +6,7 @@
     <title>Oluwo of Iwoland - Official Website</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
+    <link rel="icon" href="./image/oluwo_logo-removebg-preview.png" type="image/png">
     <style>
         :root {
             --gold: #D4AF37;
@@ -161,23 +162,25 @@
         
         .hero-container {
             display: flex;
-            gap: 40px;
-            align-items: center;
+            gap: 10px;
+            border-color: #333;
+            /* align-items: center; */
         }
         
         .hero-left {
             flex: 2;
             border-radius: 15px;
+            border-color: #f0e6d2;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            height: 1006px;
+            height: 1000px;
             width: 100%;
             background: linear-gradient(45deg, #f0e6d2, #e8d9ac);
             display: flex; /* CHANGED FROM 'none' TO 'flex' */
             align-items: center;
             justify-content: center;
             position: relative;
-            top: -40px;
+            top: 9px;
         }
         
         
@@ -249,6 +252,9 @@
         
         .news-content {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .news-date {
@@ -264,36 +270,33 @@
         
         .news-title {
             font-size: 1.2rem;
-            margin-bottom: 8px;
+            margin-bottom: 15px;
             font-weight: 600;
             color: var(--dark-red);
-        }
-        
-        .news-excerpt {
-            font-size: 0.95rem;
-            color: #555;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            line-height: 1.4;
         }
         
         .read-more {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--dark-red);
-            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--red);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 25px;
             text-decoration: none;
+            font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            align-self: flex-start;
+            margin-top: auto;
         }
         
         .read-more:hover {
-            color: var(--gold);
-            gap: 8px;
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.3);
+            gap: 12px;
         }
         
         /* About Section */
@@ -784,8 +787,7 @@
                     <img src="image/oluwo_logo-removebg-preview.png" alt="">
                 </div>
                 <div class="logo-text">
-                    <h1>His Imperial Majesty, <br>
-                        Oba Abdulrosheed Adewale Akanbi</h1>
+                    <h1>His Imperial Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
                     <p>Oluwo of Iwoland</p>
                 </div>
             </div>
@@ -811,7 +813,7 @@
         <div class="ticker-content">
             <div class="ticker-item">
                 <i class="fas fa-star ticker-icon"></i>
-                <span>His Imperial Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
+                <span>His Imperial Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
             </div>
             <div class="ticker-item">
                 <i class="fas fa-calendar-alt ticker-icon"></i>
@@ -1039,7 +1041,6 @@
                     newsCard.className = 'news-card';
                     newsCard.innerHTML = `
                         <div class="news-image">
-                           
                             <img src="${data.media}" alt="${data.title}">
                         </div>
                         <div class="news-content">
@@ -1060,8 +1061,7 @@
                                 return displayDate;
                             })()}</span>
                             <h3 class="news-title">${data.title}</h3>
-                            <p class="news-excerpt">${data.excerpt}</p>
-                            <a href="/pages/news.html" class="">Read more <i class="fas fa-arrow-right"></i></a>
+                            <a href="/pages/news.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
                         </div>
                     `;
                     newsContainer.appendChild(newsCard);
@@ -1076,13 +1076,11 @@
             const activitiesContainer = document.querySelector('.activities-container');
             activitiesContainer.innerHTML = ''; // Clear static content
 
-            let count = 0;
             try {
                 const q = query(collection(db, 'activities'), orderBy('createdAt', 'desc'));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
-                    console.log('Activity media URL:', data.media); // Added log for debugging
                     const activityCard = document.createElement('div');
                     activityCard.className = 'activity-card';
                     activityCard.innerHTML = `
@@ -1099,56 +1097,9 @@
                         </div>
                     `;
                     activitiesContainer.appendChild(activityCard);
-                    count++;
                 });
             } catch (error) {
                 console.error('Error loading activities:', error);
-            }
-
-            // If no activities loaded from Firebase, add static fallback activities
-            if (count === 0) {
-                const staticActivities = [
-                    {
-                        media: 'image/telu 12.jpg',
-                        date: 'February 2023',
-                        title: 'Royal Court Session',
-                        desc: 'His Imperial Majesty presided over an important royal court session addressing community matters.',
-                        status: 'past'
-                    },
-                    {
-                        media: 'image/telu 14.jpg',
-                        date: 'May 2023',
-                        title: 'Youth Empowerment Program',
-                        desc: 'The Oluwo launched a new initiative to empower the youth of Iwoland with skills and opportunities.',
-                        status: 'past'
-                    },
-                    {
-                        media: 'image/telu 17.jpg',
-                        date: 'August 2022',
-                        title: 'Annual Cultural Festival',
-                        desc: 'A grand celebration of Yoruba culture and traditions at the royal palace.',
-                        status: 'past'
-                    }
-                ];
-
-                staticActivities.forEach(activity => {
-                    const activityCard = document.createElement('div');
-                    activityCard.className = 'activity-card';
-                    activityCard.innerHTML = `
-                        <div class="activity-img">
-                            <img src="${activity.media}" alt="${activity.title}">
-                        </div>
-                        <div class="activity-content">
-                            <div class="activity-date">
-                                <i class="fas fa-calendar"></i> ${activity.date}
-                            </div>
-                            <h3 class="activity-title">${activity.title}</h3>
-                            <p class="activity-desc">${activity.desc}</p>
-                            <span class="activity-status status-${activity.status}">${activity.status.charAt(0).toUpperCase() + activity.status.slice(1)}</span>
-                        </div>
-                    `;
-                    activitiesContainer.appendChild(activityCard);
-                });
             }
         }
 
