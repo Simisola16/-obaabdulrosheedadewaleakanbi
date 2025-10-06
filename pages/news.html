@@ -189,7 +189,7 @@
             transform: scale(1.05);
         }
 
-        .news-badge {
+        /* . {
             position: absolute;
             top: 15px;
             left: 15px;
@@ -200,7 +200,7 @@
             font-size: 0.8rem;
             font-weight: 600;
             z-index: 2;
-        }
+        } */
 
         .news-content {
             padding: 25px;
@@ -566,12 +566,12 @@
                     newsCard.className = 'news-card';
                     newsCard.innerHTML = `
                         <div class="news-image">
-                            <span class="news-badge">${data.badge}</span>
+                            
                             <img src="${data.media}" alt="${data.title}">
                         </div>
                         <div class="news-content">
                             <div class="news-date">
-                                <i class="fas fa-calendar"></i> ${new Date(data.date).toLocaleDateString()}
+                                <i class="fas fa-calendar"></i> ${data.date.toDate().toLocaleDateString()}
                             </div>
                             <h3 class="news-title">${data.title}</h3>
                             <p class="news-excerpt">${data.content || data.excerpt}</p>
