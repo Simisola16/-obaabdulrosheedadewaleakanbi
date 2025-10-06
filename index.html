@@ -177,6 +177,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            top: -40px;
         }
         
         
@@ -244,19 +245,6 @@
         
         .news-card:hover .news-image img {
             transform: scale(1.05);
-        }
-        
-        .news-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--gold);
-            color: var(--dark-gray);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            z-index: 2;
         }
         
         .news-content {
@@ -796,7 +784,7 @@
                     <img src="image/oluwo_logo-removebg-preview.png" alt="">
                 </div>
                 <div class="logo-text">
-                    <h1>His Royal Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                    <h1>His Imperial Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
                     <p>Oluwo of Iwoland</p>
                 </div>
             </div>
@@ -822,7 +810,7 @@
         <div class="ticker-content">
             <div class="ticker-item">
                 <i class="fas fa-star ticker-icon"></i>
-                <span>His Royal Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
+                <span>His Imperial Majesty welcomes you to the official website of the ancient Iwo Kingdom</span>
             </div>
             <div class="ticker-item">
                 <i class="fas fa-calendar-alt ticker-icon"></i>
@@ -1050,7 +1038,7 @@
                     newsCard.className = 'news-card';
                     newsCard.innerHTML = `
                         <div class="news-image">
-                            <span class="news-badge">${data.badge}</span>
+                           
                             <img src="${data.media}" alt="${data.title}">
                         </div>
                         <div class="news-content">
@@ -1087,11 +1075,13 @@
             const activitiesContainer = document.querySelector('.activities-container');
             activitiesContainer.innerHTML = ''; // Clear static content
 
+            let count = 0;
             try {
                 const q = query(collection(db, 'activities'), orderBy('createdAt', 'desc'));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
                     const data = doc.data();
+                    console.log('Activity media URL:', data.media); // Added log for debugging
                     const activityCard = document.createElement('div');
                     activityCard.className = 'activity-card';
                     activityCard.innerHTML = `
@@ -1108,9 +1098,56 @@
                         </div>
                     `;
                     activitiesContainer.appendChild(activityCard);
+                    count++;
                 });
             } catch (error) {
                 console.error('Error loading activities:', error);
+            }
+
+            // If no activities loaded from Firebase, add static fallback activities
+            if (count === 0) {
+                const staticActivities = [
+                    {
+                        media: 'image/telu 12.jpg',
+                        date: 'February 2023',
+                        title: 'Royal Court Session',
+                        desc: 'His Imperial Majesty presided over an important royal court session addressing community matters.',
+                        status: 'past'
+                    },
+                    {
+                        media: 'image/telu 14.jpg',
+                        date: 'May 2023',
+                        title: 'Youth Empowerment Program',
+                        desc: 'The Oluwo launched a new initiative to empower the youth of Iwoland with skills and opportunities.',
+                        status: 'past'
+                    },
+                    {
+                        media: 'image/telu 17.jpg',
+                        date: 'August 2022',
+                        title: 'Annual Cultural Festival',
+                        desc: 'A grand celebration of Yoruba culture and traditions at the royal palace.',
+                        status: 'past'
+                    }
+                ];
+
+                staticActivities.forEach(activity => {
+                    const activityCard = document.createElement('div');
+                    activityCard.className = 'activity-card';
+                    activityCard.innerHTML = `
+                        <div class="activity-img">
+                            <img src="${activity.media}" alt="${activity.title}">
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-date">
+                                <i class="fas fa-calendar"></i> ${activity.date}
+                            </div>
+                            <h3 class="activity-title">${activity.title}</h3>
+                            <p class="activity-desc">${activity.desc}</p>
+                            <span class="activity-status status-${activity.status}">${activity.status.charAt(0).toUpperCase() + activity.status.slice(1)}</span>
+                        </div>
+                    `;
+                    activitiesContainer.appendChild(activityCard);
+                });
             }
         }
 
