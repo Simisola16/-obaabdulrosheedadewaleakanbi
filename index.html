@@ -364,11 +364,47 @@
             padding: 80px 0;
             background: var(--white);
         }
-        
+
+        .activities-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         .activities-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
+        }
+
+        .view-all-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--red);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .view-all-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(165, 42, 42, 0.3);
+            gap: 12px;
         }
         
         .activity-card {
@@ -377,32 +413,37 @@
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
         }
-        
+
         .activity-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
-        
+
         .activity-img {
-            height: 220px;
-            width: 100%;
+            flex: 0 0 300px;
+            height: 250px;
             overflow: hidden;
         }
-        
+
         .activity-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-        
+
         .activity-card:hover .activity-img img {
             transform: scale(1.05);
         }
-        
+
         .activity-content {
+            flex: 1;
             padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .activity-date {
@@ -668,15 +709,15 @@
                 gap: 20px;
             }
 
-            .hero-left {
-                display: flex !important;
-                width: 100%;
-                height: 50vh;
-                order: 1;
-                /* Remove the test styles */
-                background: linear-gradient(45deg, #f0e6d2, #e8d9ac);
-                border: none !important;
-            }
+    .hero-left {
+        display: flex;
+        width: 100%;
+        height: 50vh;
+        order: 1;
+        /* Remove the test styles */
+        background: linear-gradient(45deg, #f0e6d2, #e8d9ac);
+        border: none !important;
+    }
 
             .hero-right {
                 width: 100%;
@@ -725,6 +766,15 @@
                 width: 100%;
             }
 
+            .activity-card {
+                flex-direction: column;
+            }
+
+            .activity-img {
+                flex: 0 0 200px;
+                width: 100%;
+            }
+
             .gallery-container {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
@@ -739,7 +789,7 @@
                 background-repeat: no-repeat !important;
                 background-position: center center !important;
             }
-            
+
             .hero-right {
                 padding-left: 20px;
                 padding-right: 20px;
@@ -867,8 +917,12 @@
             <div class="section-title">
                 <h2>Royal Activities</h2>
             </div>
+            <p class="activities-intro">Stay updated with the latest royal engagements, cultural events, and community activities of His Imperial Majesty, Oba Abdulrosheed Adewale Akanbi.</p>
             <div class="activities-container">
                 <!-- Activities will be loaded dynamically -->
+            </div>
+            <div class="view-all-container">
+                <a href="pages/activities.html" class="view-all-btn">View All Activities <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -1079,7 +1133,9 @@
             try {
                 const q = query(collection(db, 'activities'), orderBy('createdAt', 'desc'));
                 const querySnapshot = await getDocs(q);
+                let count = 0;
                 querySnapshot.forEach((doc) => {
+                    if (count >= 4) return;
                     const data = doc.data();
                     const activityCard = document.createElement('div');
                     activityCard.className = 'activity-card';
@@ -1097,6 +1153,7 @@
                         </div>
                     `;
                     activitiesContainer.appendChild(activityCard);
+                    count++;
                 });
             } catch (error) {
                 console.error('Error loading activities:', error);
