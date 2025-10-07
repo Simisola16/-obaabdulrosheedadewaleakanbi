@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Oluwo of Iwoland</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="./image/oluwo_logo-removebg-preview.png" type="image/png">
     <style>
         :root {
             --gold: #D4AF37;
@@ -243,6 +244,10 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn-full {
@@ -266,6 +271,7 @@
         .btn:hover {
             background: var(--dark-red);
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .btn:active::after {
@@ -328,6 +334,32 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .admin-header h2 {
+            color: var(--dark-red);
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .admin-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
         }
 
         .tabs {
@@ -486,9 +518,6 @@
         }
 
         .logout-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
             padding: 10px 20px;
             background: var(--red);
             color: var(--white);
@@ -496,7 +525,9 @@
             border-radius: 5px;
             cursor: pointer;
             transition: var(--transition);
-            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .logout-btn:hover {
@@ -596,7 +627,6 @@
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
         }
 
         @keyframes spin {
@@ -762,6 +792,163 @@
             margin-top: 20px;
         }
 
+        /* Enhanced Activities Form Styles */
+        .activities-form-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin: 0 20px;
+        }
+
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            width: 100px;
+            height: 2px;
+            background: #ddd;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .step.active .step-number {
+            background: var(--gold);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-number {
+            background: var(--dark-gold);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            text-align: center;
+        }
+
+        .step.active .step-label {
+            color: var(--dark-red);
+            font-weight: 600;
+        }
+
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .form-section:hover {
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-section-title {
+            margin-bottom: 15px;
+            color: var(--dark-red);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title i {
+            color: var(--gold);
+        }
+
+        /* Enhanced animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .bounce-in {
+            animation: bounceIn 0.6s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-up {
+            animation: slideInUp 0.5s ease;
+        }
+
         @media (max-width: 992px) {
             .header-content {
                 flex-direction: column;
@@ -854,6 +1041,16 @@
             .confirmation-buttons {
                 flex-direction: column;
             }
+
+            .step:not(:last-child)::after {
+                width: 60px;
+                left: 40px;
+            }
+
+            .form-navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -878,6 +1075,15 @@
             .item-card {
                 padding: 15px;
             }
+
+            .step:not(:last-child)::after {
+                width: 40px;
+                left: 30px;
+            }
+
+            .step {
+                margin: 0 10px;
+            }
         }
     </style>
 </head>
@@ -889,7 +1095,7 @@
                     <img src="/image/oluwo_logo-removebg-preview.png" alt="Oluwo Logo">
                 </div>
                 <div class="logo-text">
-                    <h1>His Imperial Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
+                    <h1>His Imperial Majesty, Oba Abdulrosheed Adewale Akanbi</h1>
                     <p>Oluwo of Iwoland</p>
                 </div>
             </div>
@@ -931,7 +1137,12 @@
 
         <!-- Admin Panel -->
         <div id="admin-panel" class="admin-panel">
-            <button class="logout-btn" id="logout-btn">Logout</button>
+            <div class="admin-header">
+                <h2>Admin Dashboard</h2>
+                <button class="logout-btn" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
 
             <div class="tabs">
                 <button class="tab-btn active" data-tab="hero">Hero Image</button>
@@ -1007,44 +1218,97 @@
             <!-- Activities Tab -->
             <div id="activities" class="tab-content">
                 <h3>Add Activity</h3>
-                <form id="activities-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="activity-title">Title</label>
-                            <input type="text" id="activity-title" required>
+                <div class="activities-form-container">
+                    <div class="step-indicator">
+                        <div class="step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Basic Info</div>
                         </div>
-                        <div class="form-group">
-                            <label for="activity-status">Status</label>
-                            <select id="activity-status" required>
-                                <option value="upcoming">Upcoming</option>
-                                <option value="past">Past</option>
-                            </select>
+                        <div class="step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Details</div>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Media</div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="activity-date">Date</label>
-                        <input type="text" id="activity-date" placeholder="e.g., January 2024" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="activity-desc">Description</label>
-                        <textarea id="activity-desc" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="activity-media-type">Media Type</label>
-                            <select id="activity-media-type" required>
-                                <option value="image" selected>Image</option>
-                            </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="file-input">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select activity media</p>
-                            <input type="file" id="activity-image" accept="image/*" required>
-                        </label>
-                        <div id="activity-preview" class="preview" style="display: none;"></div>
-                    </div>
-                    <button type="submit" class="btn btn-full">Add Activity</button>
-                </form>
+
+                    <form id="activities-form">
+                        <div class="form-step active" data-step="1">
+                            <div class="form-section slide-in-up">
+                                <div class="form-section-title">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Basic Information</span>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="activity-title">Title</label>
+                                        <input type="text" id="activity-title" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="activity-status">Status</label>
+                                        <select id="activity-status" required>
+                                            <option value="upcoming">Upcoming</option>
+                                            <option value="past">Past</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="next-step-1">Next <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="form-step" data-step="2">
+                            <div class="form-section slide-in-up">
+                                <div class="form-section-title">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Date & Description</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="activity-date">Date</label>
+                                    <input type="text" id="activity-date" placeholder="e.g., January 2024" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="activity-desc">Description</label>
+                                    <textarea id="activity-desc" rows="3" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="prev-step-2"><i class="fas fa-arrow-left"></i> Previous</button>
+                                <button type="button" class="btn btn-secondary" id="next-step-2">Next <i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="form-step" data-step="3">
+                            <div class="form-section slide-in-up">
+                                <div class="form-section-title">
+                                    <i class="fas fa-images"></i>
+                                    <span>Media</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="activity-media-type">Media Type</label>
+                                    <select id="activity-media-type" required>
+                                        <option value="image" selected>Image</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="file-input">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <p>Click to select activity media</p>
+                                        <input type="file" id="activity-image" accept="image/*" required>
+                                    </label>
+                                    <div id="activity-preview" class="preview" style="display: none;"></div>
+                                </div>
+                            </div>
+                            <div class="form-navigation">
+                                <button type="button" class="btn btn-secondary" id="prev-step-3"><i class="fas fa-arrow-left"></i> Previous</button>
+                                <button type="submit" class="btn btn-full">Add Activity</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div id="activities-message"></div>
                 
                 <div class="items-container">
@@ -1221,7 +1485,7 @@
             logoutBtn.innerHTML = '<span class="loading"></span> Logging out...';
             logoutBtn.disabled = true;
             await signOut(auth);
-            logoutBtn.innerHTML = 'Logout';
+            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
             logoutBtn.disabled = false;
         });
 
@@ -1278,24 +1542,6 @@
         previewMedia(document.getElementById('hero-image'), document.getElementById('hero-preview'));
         previewMedia(document.getElementById('news-image'), document.getElementById('news-preview'));
         previewMedia(document.getElementById('activity-image'), document.getElementById('activity-preview'));
-
-        // Media type change handlers
-        // Removed media type change handlers to restrict to images only
-        // document.getElementById('news-media-type').addEventListener('change', (e) => {
-        //     const input = document.getElementById('news-image');
-        //     input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
-        //     // Clear current file if type changed
-        //     input.value = '';
-        //     document.getElementById('news-preview').style.display = 'none';
-        // });
-
-        // document.getElementById('activity-media-type').addEventListener('change', (e) => {
-        //     const input = document.getElementById('activity-image');
-        //     input.accept = e.target.value === 'video' ? 'video/*' : 'image/*';
-        //     // Clear current file if type changed
-        //     input.value = '';
-        //     document.getElementById('activity-preview').style.display = 'none';
-        // });
 
         // Hero form
         document.getElementById('hero-form').addEventListener('submit', async (e) => {
@@ -1534,7 +1780,67 @@
             }
         }
 
-        // Activities form
+        // Activities form - Multi-step functionality
+        const activitySteps = document.querySelectorAll('.form-step');
+        const stepIndicators = document.querySelectorAll('.step');
+        
+        // Next step buttons
+        document.getElementById('next-step-1').addEventListener('click', () => {
+            const title = document.getElementById('activity-title').value;
+            const status = document.getElementById('activity-status').value;
+            
+            if (!title) {
+                alert('Please enter a title for the activity');
+                return;
+            }
+            
+            goToStep(2);
+        });
+        
+        document.getElementById('next-step-2').addEventListener('click', () => {
+            const date = document.getElementById('activity-date').value;
+            const desc = document.getElementById('activity-desc').value;
+            
+            if (!date) {
+                alert('Please enter a date for the activity');
+                return;
+            }
+            
+            if (!desc) {
+                alert('Please enter a description for the activity');
+                return;
+            }
+            
+            goToStep(3);
+        });
+        
+        // Previous step buttons
+        document.getElementById('prev-step-2').addEventListener('click', () => goToStep(1));
+        document.getElementById('prev-step-3').addEventListener('click', () => goToStep(2));
+        
+        function goToStep(stepNumber) {
+            // Hide all steps
+            activitySteps.forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Show selected step
+            document.querySelector(`.form-step[data-step="${stepNumber}"]`).classList.add('active');
+            
+            // Update step indicators
+            stepIndicators.forEach(indicator => {
+                indicator.classList.remove('active');
+                if (parseInt(indicator.dataset.step) < stepNumber) {
+                    indicator.classList.add('completed');
+                } else if (parseInt(indicator.dataset.step) === stepNumber) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('completed');
+                }
+            });
+        }
+
+        // Activities form submission
         document.getElementById('activities-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const title = document.getElementById('activity-title').value;
@@ -1543,10 +1849,13 @@
             const desc = document.getElementById('activity-desc').value;
             const file = document.getElementById('activity-image').files[0];
 
-            if (!file) return;
+            if (!file) {
+                alert('Please select an image for the activity');
+                return;
+            }
 
             const message = document.getElementById('activities-message');
-            const submitBtn = document.querySelector('#activities-form .btn');
+            const submitBtn = document.querySelector('#activities-form .btn[type="submit"]');
             const originalText = submitBtn.textContent;
 
             submitBtn.innerHTML = '<span class="loading"></span> Uploading...';
@@ -1573,6 +1882,9 @@
                 document.getElementById('activity-preview').style.display = 'none';
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
+                
+                // Reset to first step
+                goToStep(1);
                 
                 // Refresh activities
                 fetchActivities();
