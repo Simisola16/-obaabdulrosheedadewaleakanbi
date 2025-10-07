@@ -709,15 +709,16 @@
                 gap: 20px;
             }
 
-    .hero-left {
-        display: flex;
-        width: 100%;
-        height: 50vh;
-        order: 1;
-        /* Remove the test styles */
-        background: linear-gradient(45deg, #f0e6d2, #e8d9ac);
-        border: none !important;
-    }
+            .hero-left {
+                display: flex;
+                width: 100%;
+                height: 80vh !important;
+                order: 1;
+                flex: none !important;
+                /* Remove the test styles */
+                background: linear-gradient(45deg, #f0e6d2, #e8d9ac);
+                border: none !important;
+            }
 
             .hero-right {
                 width: 100%;
@@ -780,12 +781,16 @@
             }
 
             .hero-left {
-                height: 40vh;
+                height: 80vh !important;
+                background-size: cover !important;
                 border-radius: 10px;
+                flex: none !important;
+                padding: -30px !important;
+                
             }
 
             .hero-image {
-                background-size: contain !important;
+                background-size: cover !important;
                 background-repeat: no-repeat !important;
                 background-position: center center !important;
             }
